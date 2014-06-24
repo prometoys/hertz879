@@ -1,0 +1,19 @@
+Homepage-Team-Generator
+-----------------------
+
+Das Programm läuft unter Linux, aber vermutlich auch Windows und Mac.
+Es muss Python installiert sein und die Erweiterung python-unidecode.
+(Auf Lisa ist das bereits der Fall)
+
+foto-liste.csv enthält die Liste mit Namen und Links zu den Foto-Dateien. 
+Die Datei muss im selben Ordner liegen wie das Skript.
+
+Das Skript generiert eine ausgabe.txt die den HTML-Code enthält. Diese 
+kopieren und in Wordpress einfügen.
+
+Unter Linux sollte ein Doppelklick auf homepage_team_gen.py reichen. Dann
+"Run" (bzw. Ausführen) oder "Run in Terminal" wählen. Danach sollte die 
+ausgabe.html im selben Ordner erscheinen.
+
+Fragen: mail@tonekaboni.de
+
