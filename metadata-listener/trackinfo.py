@@ -4,6 +4,12 @@ import socket, re
 from optparse import OptionParser
 
 
+# Trackinfo liest nur Textdateien aus:
+
+# tmp/xspf oder tmp/plain
+
+# stream/vorbis sind deprecated
+
 
 # Methoden, die vom OptionParser aufgerufen werden sollen
 # auslagern in neues trackinfo?
@@ -32,12 +38,12 @@ parser = OptionParser(version="%prog 0.10",
 
 parser.set_defaults(verbose=False)
 
-parser.add_option("-o","--vorbis", help="Normal Vorbiscomment", 
+parser.add_option("-o","--vorbis", help="Normal Vorbiscomment (Deprecated)", 
                   action="callback", callback=print_vorbis)
 parser.add_option("-p", "--plain",  
                   help="Vorbiscomment-like but for internal use", 
                   action="callback", callback=print_plain)
-parser.add_option("-s", "--stream", help="Vorbiscomment for Stream", 
+parser.add_option("-s", "--stream", help="Vorbiscomment for Stream (Deprecated)", 
                   action="callback", callback=print_stream)
 parser.add_option("-a", "--artist", help="Only current Artist",  
                   action="callback", callback=print_current_artist)
