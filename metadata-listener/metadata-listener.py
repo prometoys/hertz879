@@ -61,26 +61,59 @@ XSPF_FRAGMENT_FILENAME=TMP_DIR+'xspf-current-fragment'
 PLAIN_FRAGMENT_FILENAME=TMP_DIR+'plain-current-fragment'
 CURRENT_ARTIST_FILENAME=TMP_DIR+'current.artist'
 CURRENT_TITLE_FILENAME=TMP_DIR+'current.title'
+
+# Debug-Funktion
+#TODO: Ausgabe auf stderr?
+
+def error_print(string):
+    print >> sys.stderr, string
+
+def debug(string):
+    if option.verbose:
+        error_print(string)
+
 # Optionen zuweisen, die später ausgewertet werden sollen/können.
+# TODO: use argparser instead?
 
 parser = OptionParser(version="%prog 0.10", 
                       usage="usage: %prog [options]")
 
 parser.set_defaults(verbose=False)
+parser.set_defaults(web=False)
+parser.set_defaults(text=False)
+parser.set_defaults(xspf=False)
 parser.set_defaults(port=UDP_PORT)
 parser.set_defaults(ip=UDP_IP)
 
 parser.add_option("-p", "--port", dest="port", type="int", help="Port to listen")
 parser.add_option("-i", "--ip", dest="ip", help="IP (v4) to listen")
+parser.add_option("-w", "--web", action="store_true", 
+                  help="Save output for the webserver")
+parser.add_option("-t", "--text", action="store_true", 
+                  help="Save output in plain-text")
+parser.add_option("-x", "--xspf", action="store_true", 
+                  help="Save output in XSPF")
 parser.add_option("-v", "--verbose", action="store_true", 
                   help="Enable verbose output")
 
 # Option-Parser starten und Kommandozeilen-Optionen auslesen 
 (option, args) = parser.parse_args()
 
-DEBUG=option.verbose
+STATUS = ["Off", "On"]
+
+debug("web:  " + STATUS[int(option.web)])
+debug("text: " + STATUS[int(option.text)])
+debug("xspf: " + STATUS[int(option.xspf)])
+
+if not option.web and not option.text and not option.xspf:   # Kein Output aktiviert
+    parser.error('No output selected.\n\t\t\t     Use at least one of -t, -w and/or -x')
+
 UDP_IP=option.ip
 UDP_PORT=option.port
+
+CREATE_WEB=option.web
+CREATE_TEXT=option.text
+CREATE_XSPF=option.xspf
 
 RECURRING_ERROR=False
 
@@ -104,17 +137,6 @@ SPLIT_CHAR = "|"
 # ---------------------------
 # Zeichenkette, für die Metadaten in der Playliste. Arg unwichtig.
 XSPF_META_TIMESTAMP_STRING="http://radio.uni-bielefeld.de/xspf/timestamp"
-
-
-# Debug-Funktion
-#TODO: Ausgabe auf stderr?
-
-def error_print(string):
-    print >> sys.stderr, string
-
-def debug(string):
-    if DEBUG:
-        error_print(string)
 
 def write_file(track, dir, filename, replace):
     if replace:
@@ -171,9 +193,13 @@ def create_plain(artist, song, group, ms, date):
 
     debug("----------------\nPlain output:" + track + "----------------")
     
-    write_file(track, TMP_DIR, PLAIN_FRAGMENT_FILENAME, True)
-    write_file(artist+"\n", TMP_DIR, CURRENT_ARTIST_FILENAME, True)
-    write_file(song+"\n", TMP_DIR, CURRENT_TITLE_FILENAME, True)
+    if CREATE_TEXT:
+        debug("Creating plain output")
+        write_file(track, TMP_DIR, PLAIN_FRAGMENT_FILENAME, True)
+    if CREATE_WEB:
+        debug("Creating output for webserver")
+        write_file(artist+"\n", TMP_DIR, CURRENT_ARTIST_FILENAME, True)
+        write_file(song+"\n", TMP_DIR, CURRENT_TITLE_FILENAME, True)
 
 # Copy-Paste-Haufen
 #    if errorcode == errno.EACCES:
@@ -268,9 +294,12 @@ while True:
             # XML von Hand bauen. Für das bissl XSPF lohnt sich keine lib.
             # Es gibt xspf.py, aber das hat <meta> noch nicht implementiert.
             
-            create_xspf(artist, song, group, ms, date)
+            if CREATE_XSPF:
+                debug("Creating XSPF output")
+                create_xspf(artist, song, group, ms, date)
             
-            create_plain(artist, song, group, ms, date)
+            if CREATE_WEB or CREATE_TEXT:
+                create_plain(artist, song, group, ms, date)
             
         else:
             debug("Excluding GROUP: _" + group + "_")
