@@ -1,0 +1,57 @@
+#01update-meta-vorbiscomment
+#!/bin/bash
+
+source "${HOME}/.hirse.rc";
+
+trackinfo --stream >${HIRSE_META_VORBISCOMMENT}
+trackinfo --stream >${HIRSE_META_WEB_VORBISCOMMENT}
+
+10update-meta-ices
+#!/bin/bash
+
+source "${HOME}/.hirse.rc";
+
+kill -SIGUSR1 ${HIRSE_ICES_PID}
+#20update-xspf-fragment
+
+#!/bin/bash
+
+source "${HOME}/.hirse.rc";
+
+trackinfo --xspf-track >>${HIRSE_PLS_XSPF_FRAGMENT}
+
+# 30update-playlist-of-the-day
+#!/bin/bash
+
+source "${HOME}/.hirse.rc";
+
+mkdir -p "${HIRSE_PLS_ROOT}/${HIRSE_MONTH_PATH}"
+make-yesterday-link >"${HIRSE_PLS_YESTERDAY}"
+make-today-link >"${HIRSE_PLS_TODAY}"
+make-xspf "${HIRSE_PLS_XSPF_FRAGMENT}" >"${HIRSE_PLS_XSPF}"
+xmlstarlet tr "${HIRSE_PLS_XSL}" "${HIRSE_PLS_XSPF}" >"${HIRSE_PLS_HTML}"
+make-year-index >"${HIRSE_PLS_ROOT}/${HIRSE_YEAR_PATH}/index.html"
+
+
+#40update-playlist-last-10
+#!/bin/bash
+
+source "${HOME}/.hirse.rc";
+
+tail -60 "${HIRSE_PLS_XSPF_FRAGMENT}" >"${HIRSE_PLS_XSPF_LAST_TEN_FRAGMENT}"
+make-xspf "${HIRSE_PLS_XSPF_LAST_TEN_FRAGMENT}" >"${HIRSE_PLS_XSPF_LAST_TEN}"
+
+#50update-meta-web-artist
+#!/bin/bash
+
+source "${HOME}/.hirse.rc";
+
+trackinfo --artist >${HIRSE_META_WEB_ARTIST}
+
+#50update-meta-web-title
+#!/bin/bash
+
+source "${HOME}/.hirse.rc";
+
+trackinfo --title >${HIRSE_META_WEB_TITLE}
+

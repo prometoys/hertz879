@@ -1,0 +1,30 @@
+MUSIC|Avery, Theodross|It#s about that time|309612 
+IDENTS||Ratatat ID|9312 
+MUSIC|Orka|Kapersber|261072
+IDENTS|Student|Student Station ID|4226 
+MUSIC|Jamiroquai|Feels like it should|214044
+IDENTS|Brother Resistance|Brother Resistance Station ID|6314
+MUSIC|Forward Russia|Six|178272
+IDENTS|Hertz 87.9|lemoine|8052
+MUSIC|Devil in Miss Jones|I-Dentity|221736
+IDENTS|Calexico|Calexico Station ID|11570
+MUSIC|Marr|jd mac kaye|281424
+IDENTS|Steffi Mahsmann|testament-id|6684
+MUSIC|EVC|Back To Me 2|233568
+|||
+IDENTS||StationID-Weakerthans|5700
+MUSIC|Jeans Team|Wunderbar|236736
+MUSIC|Visage|Shameless Fashion|258636
+MUSIC|Rhodes, Lou|The Rain|199584
+IDENTS|Veljanov|Veljanov ID|10044
+MUSIC|Arab Strap|Direction of strong man|256908
+MUSIC|Cornershop|The Constant Springs|246216
+JINGLES|Nachrichten|Jingle Infakt Anfang|8402
+|||
+|||
+IDENTS|Jenny|ID Helmuth Skowronek|8772
+MUSIC|Catatonia|Road Rage|23713
+||| 
+IDENTS||Uwe Seeler|13164 
+MUSIC|Shreefpunk|Aua|295272
+MUSIC|Julian Cope|Paradise Mislaid|282108
