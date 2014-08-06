@@ -2,21 +2,51 @@
 import socket
 import random
 import os
+from optparse import OptionParser
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))+"/"
-
+FILE='playlist.txt'
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5000
 MESSAGE = "GROUP|ARTIST|TITLE|123456 \n"
 
-file = open(SCRIPT_DIR+'playlist.txt','rU')
+parser = OptionParser(version="%prog 0.10", 
+                      usage="usage: %prog [options]")
+
+#parser.set_defaults(verbose=False)
+parser.set_defaults(port=UDP_PORT)
+parser.set_defaults(ip=UDP_IP)
+parser.set_defaults(message=MESSAGE)
+parser.set_defaults(filename=FILE)
+parser.set_defaults(random=True)
+
+parser.add_option("-p", "--port", dest="port", type="int", help="Port to send")
+parser.add_option("-i", "--ip", dest="ip", help="IP (v4) to send")
+parser.add_option("-m", "--message", dest="message", help="Message to send")
+parser.add_option("-n", "--no-random", dest="random", action="store_false", 
+                  help="Enable random select (conflict with -f)")
+#TODO: Konflikt zwischen -n und -f einbauen
+parser.add_option("-f", "--filename", dest="filename", help="Playlist-file to pick a random line to send")
+#parser.add_option("-v", "--verbose", action="store_true", 
+#                  help="Enable verbose output")
+
+# Option-Parser starten und Kommandozeilen-Optionen auslesen 
+(option, args) = parser.parse_args()
+
+#DEBUG=option.verbose
+UDP_IP=option.ip
+UDP_PORT=option.port
+MESSAGE=option.message
+
+file = open(SCRIPT_DIR+FILE,'rU')
 
 list = []
 
 for line in file:
 	list.append( line.rstrip('\n'))
 
-MESSAGE = list[random.randrange(len(list))]
+if(option.random):
+    MESSAGE = list[random.randrange(len(list))]
 
 print "UDP target IP:", UDP_IP
 print "UDP target port:", UDP_PORT
