@@ -74,6 +74,8 @@ CURRENT_TITLE_FILENAME=TMP_DIR+'current.title'
 LOCAL_TIMEZONE = "Europe/Berlin"
 
 # TODO: Fehlermeldungen/Debug optional in Logdatei
+# http://stackoverflow.com/questions/6579496/using-print-statements-only-to-debug
+# https://docs.python.org/2/howto/logging.html
 
 # Debug-Funktion
 def error_print(string):
