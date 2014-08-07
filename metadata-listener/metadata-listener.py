@@ -1,8 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
-import socket, re, sys, errno, os
+import socket
+import re
+import sys, errno, os
+import pytz # required package: python-tz
+
 from datetime import datetime
 from optparse import OptionParser
+
+#TODO: Von .hirse.rc Variablen lesen
+
+#TODO: Haverie-System / Restart Listener (while true??) -> lieber via bash?
 
 # Dieses Skript lauscht auf Now-and-Next Nachrichten von Rivendell, die
 # Angaben über das gerade gespielte Event (Song, Jingle, Beitrag, …) enthalten.
@@ -52,7 +60,7 @@ UDP_PORT = 5000
 # nachsehen in rdadmin -> Manage Groups
 # Groß- und Kleinschreibung beachten.
 
-WANTED_GROUPS = ["MUSIC", "MusikArchiv", "WORT", "TRAFFIC", "SHOWS"]
+WANTED_GROUPS = ["MUSIC", "MusikArchiv", "WORT", "TRAFFIC", "SHOWS", "IDENTS"]
 
 # TODO: Pfade via Variable
 
@@ -62,9 +70,12 @@ PLAIN_FRAGMENT_FILENAME=TMP_DIR+'plain-current-fragment'
 CURRENT_ARTIST_FILENAME=TMP_DIR+'current.artist'
 CURRENT_TITLE_FILENAME=TMP_DIR+'current.title'
 
-# Debug-Funktion
-#TODO: Ausgabe auf stderr?
+# Timezone for pytz. In an ideal world should be generated automatically.
+LOCAL_TIMEZONE = "Europe/Berlin"
 
+# TODO: Fehlermeldungen/Debug optional in Logdatei
+
+# Debug-Funktion
 def error_print(string):
     print >> sys.stderr, string
 
@@ -78,6 +89,7 @@ def debug(string):
 parser = OptionParser(version="%prog 0.10", 
                       usage="usage: %prog [options]")
 
+# Vorgabewerte für Optionen
 parser.set_defaults(verbose=False)
 parser.set_defaults(web=False)
 parser.set_defaults(text=False)
@@ -99,8 +111,10 @@ parser.add_option("-v", "--verbose", action="store_true",
 # Option-Parser starten und Kommandozeilen-Optionen auslesen 
 (option, args) = parser.parse_args()
 
+# Hilfsvariable für Statusmeldungen
 STATUS = ["Off", "On"]
 
+# Ausgabe, welche Output-Formate erzeugt werden.
 debug("web:  " + STATUS[int(option.web)])
 debug("text: " + STATUS[int(option.text)])
 debug("xspf: " + STATUS[int(option.xspf)])
@@ -108,6 +122,7 @@ debug("xspf: " + STATUS[int(option.xspf)])
 if not option.web and not option.text and not option.xspf:   # Kein Output aktiviert
     parser.error('No output selected.\n\t\t\t     Use at least one of -t, -w and/or -x')
 
+# Werte aus den Kommandozeilen-Optionen für das Skript übernehmen
 UDP_IP=option.ip
 UDP_PORT=option.port
 
@@ -116,11 +131,6 @@ CREATE_TEXT=option.text
 CREATE_XSPF=option.xspf
 
 RECURRING_ERROR=False
-
-#TODO: Von .hirse.rc Variablen lesen
-
-#TODO: Haverie-System / Restart Listener (while true??)
-
 
 # SPLIT_CHAR:
 # -----------
@@ -138,46 +148,52 @@ SPLIT_CHAR = "|"
 # Zeichenkette, für die Metadaten in der Playliste. Arg unwichtig.
 XSPF_META_TIMESTAMP_STRING="http://radio.uni-bielefeld.de/xspf/timestamp"
 
-def write_file(track, dir, filename, replace):
-    if replace:
-        mode = 'w' # replace
-    else:
-        mode = 'a' # append
-#    try: 
-#        os.makedirs(path)
-#    except OSError:
-#        if not os.path.isdir(path):
-#            raise
+
+# Datei schreiben. Nimmt vorbereiten String, Pfad und Dateiname entgegen.
+# Die Ausgabe-Datei wird überschrieben.
+
+# TODO: Exceptions permission, etc
+def write_file(string, dir, filename):
     try:
         if not os.path.isdir(dir):
             os.makedirs(dir)
-        outputfile = open(filename, mode)
-        outputfile.write(track)
+        outputfile = open(filename, 'w')
+        outputfile.write(string)
         outputfile.close()
     except IOError, e:
         errorcode=e[0]
         errordesc=e[1]
-        error_print(errordesc, "[", errorcode, "]")
+        error_print("Error: " + errordesc + " [" + `errorcode` + "]")
         # TODO: Dateirechte etc behandeln
         sys.exit(1)
     except Exception, e:
-        error_print(type(e).__name__ +": " + e[0])
+        error_print("Error: " + `e`)
+#        error_print(type(e).__name__ +": " + `e[0]`)
         sys.exit(1)
-        
-def create_xspf(artist, song, group, ms, date):
 
-    date_str = date.strftime("%Y-%m-%dT%H:%M:%S+01:00")
+# Generate pytz-timezone object for conversion
+PYTZ_OUTPUT_TIMEZONE=pytz.timezone(LOCAL_TIMEZONE)
 
+# Removing ms from Isoformat. Expect string from datetime.isoformat()
+def get_clean_xmltime(str):
+    return re.sub(r'\..*?\+', '+', str)
+
+# Create <track>-element for XSPF. This is only a fragment, not valid XSPF
+def create_xspf(artist, song, group, ms, utc_date):
+    date = utc_date.astimezone(PYTZ_OUTPUT_TIMEZONE)
+    date_str = get_clean_xmltime(date.isoformat())
     xmltitle = "\t<title>"+song+"</title>\n"
     xmlcreator = "\t<creator>"+artist+"</creator>\n"
     xmlduration = "\t<duration>"+ms+"</duration>\n"
     xmlmeta = "\t<meta rel=\""+XSPF_META_TIMESTAMP_STRING+"\">"+date_str+"</meta>\n"
     xmltrack = "<track>\n" + xmltitle + xmlcreator + xmlduration + xmlmeta + "</track>\n"
-    debug(xmltrack)
-    write_file(xmltrack, TMP_DIR, XSPF_FRAGMENT_FILENAME, True)
+    debug("----------------\nXSPF output:\n" + xmltrack + "----------------")
+    write_file(xmltrack, TMP_DIR, XSPF_FRAGMENT_FILENAME)
 
-def create_plain(artist, song, group, ms, date):
-
+# Create plain-text key/value output. Depends on the options at starttime
+# it creates the full file (like vorbis-format) and/or webserver files.
+def create_plain(artist, song, group, ms, utc_date):
+    date = utc_date.astimezone(PYTZ_OUTPUT_TIMEZONE)
     creator = "artist="+artist+"\n"
     title = "title="+song+"\n"
     genre = "genre="+group+"\n"
@@ -185,8 +201,8 @@ def create_plain(artist, song, group, ms, date):
     duration = "playTime="+`int(round(int(ms)/1000.))`+"\n"
     year = "startYear="+`date.year`+"\n"
     month = "startMonth="+`date.month`+"\n"
-    day = "startDaz="+`date.day`+"\n"
-    time = "startYear="+date.strftime("%H:%M:%S")+"\n"
+    day = "startDay="+`date.day`+"\n"
+    time = "startTime="+date.strftime("%H:%M:%S")+"\n"
     comment = 'comment=\n'
 
     track = creator + title + genre + duration + year + month + day + time + comment
@@ -195,26 +211,11 @@ def create_plain(artist, song, group, ms, date):
     
     if CREATE_TEXT:
         debug("Creating plain output")
-        write_file(track, TMP_DIR, PLAIN_FRAGMENT_FILENAME, True)
+        write_file(track, TMP_DIR, PLAIN_FRAGMENT_FILENAME)
     if CREATE_WEB:
         debug("Creating output for webserver")
-        write_file(artist+"\n", TMP_DIR, CURRENT_ARTIST_FILENAME, True)
-        write_file(song+"\n", TMP_DIR, CURRENT_TITLE_FILENAME, True)
-
-# Copy-Paste-Haufen
-#    if errorcode == errno.EACCES:
-#        error_print(SOCK_ERR_STR + errordesc)
-#    elif errorcode == errno.EADDRINUSE:
-#        error_print(SOCK_ERR_STR + errordesc)
-#        # Spezieller Exitcode für die Bash, damit wir in dem Fall warten können.
-#        sys.exit(5)
-#    elif errorcode == socket.EAI_NODATA:
-#         error_print(SOCK_ERR_STR + errordesc)
-#    else:
-#        error_print(SOCK_ERR_STR + " Error " + `errorcode` + "], " + errordesc)
-#    sys.exit(1)
-
-
+        write_file(artist+"\n", TMP_DIR, CURRENT_ARTIST_FILENAME)
+        write_file(song+"\n", TMP_DIR, CURRENT_TITLE_FILENAME)
 
 #sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
 #sock.bind((UDP_IP, UDP_PORT))
@@ -286,8 +287,7 @@ while True:
         song = song.strip()
         group = group.strip()
         ms = ms.strip()
-        # TODO: Zeitzone korrekt ermitteln und einbinden
-        date = datetime.today()
+        date = datetime.now(pytz.utc)
         
         # Nur die Events in die Playlist einpflegen, die wir oben angegeben haben.
         if group in WANTED_GROUPS:
