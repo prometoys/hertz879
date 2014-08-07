@@ -39,7 +39,7 @@ IDENTS|Cradle of Filth|Cradle of Filth Station ID|3914
 IDENTS|Dance or Die|Dance or Die Station ID|5112
 IDENTS|Daniel Zillmann|Daniel Zillmann Station ID|3554
 IDENTS|Der Papst|id-pabst|18024
-IDENTS|Die �rzte|Aerzte Station ID|34898
+IDENTS|Die Ärzte|Aerzte Station ID|34898
 IDENTS|Drei Fragezeichen|Drei Fragezeichen Station ID|6074
 IDENTS|Electric Club, The|The Electric Club Station ID|5244
 IDENTS|Farin Urlaub|Farin Urlaub Station ID|7284
@@ -47,7 +47,7 @@ IDENTS|Heinz Hoenig|Heinz Hoenig Station ID|16538
 IDENTS|Hennes Bender 2|Benderid Station ID|9324
 IDENTS|Hennes Bender|Hennes Bender Station ID|13586
 IDENTS||id-The_Black_Seeds-Daniel_Weetman|5388
-IDENTS|j�rg|J15|22476
+IDENTS|jörg|J15|22476
 IDENTS|Lee Buddah|Buddah Station ID|4620
 IDENTS|Megadeth|id-Megaid|9252
 IDENTS||New Pronographers-Station_ID|5988
@@ -106,11 +106,11 @@ MUSIC|Boogaerts, Mathieu|Jambe|142656
 MUSIC|Bright November|Strain Return|246180
 MUSIC|Buttering Trio| Tired Love|194268
 MUSIC|Calexico|Cruel|235308
-MUSIC|Carla Bruni|La derni�re minute|50508
+MUSIC|Carla Bruni|La dernière minute|50508
 MUSIC|Catfish And The Bottleman| Kathleen|160596
 MUSIC|Caviare Days|When The Light Is Breaking|185388
 MUSIC|Cayucas|A Summer Thing|230328
-MUSIC|Charity Children|Little Sparrow (f�r die Kind..|239556
+MUSIC|Charity Children|Little Sparrow (für die Kind..|239556
 MUSIC|Charles Bradley|You Put The Flame On It|224292
 MUSIC|Chilites|What Do I Whish For|174348
 MUSIC|Congo Natty|Jah Warriors|217404
@@ -159,12 +159,12 @@ MUSIC|Guns N' Roses|Madagascar|335796
 MUSIC|Haight Ashbury|Freeman Town (Radio Edit)|228492
 MUSIC|Helldorado|Diesel and Bones|228048
 MUSIC|Hercules and Love Affair| THAT'S NOT ME|247908
-MUSIC|Hertz 87.9|Hertzst�ck + Klassiker|267372
-MUSIC|Hertz 87.9|Hertzst�ck + Klassiker|275640
-MUSIC|Hertz 87.9|Hertzst�ck + Klassiker|287628
-MUSIC|Hertz 87.9|Hertzst�ck + Klassiker|296664
-MUSIC|Hertz 87.9|Hertzst�ck + Klassiker|297924
-MUSIC|Hertz 87.9|Hertzst�ck + Klassiker|338652
+MUSIC|Hertz 87.9|Hertzstück + Klassiker|267372
+MUSIC|Hertz 87.9|Hertzstück + Klassiker|275640
+MUSIC|Hertz 87.9|Hertzstück + Klassiker|287628
+MUSIC|Hertz 87.9|Hertzstück + Klassiker|296664
+MUSIC|Hertz 87.9|Hertzstück + Klassiker|297924
+MUSIC|Hertz 87.9|Hertzstück + Klassiker|338652
 MUSIC|Hubbard, Freddie|Birdlike|615492
 MUSIC|Idle Class|Chances are for Poets|160752
 MUSIC|Indelicates, THe|America|252624
@@ -199,7 +199,7 @@ MUSIC|Major Lance|Um, Um, Um, Um, Um, Um|135300
 MUSIC|Mansun|Comes as no surprise|240492
 MUSIC|Mansun|Wide open space|271008
 MUSIC|Maps|I Heard Them Say|260688
-MUSIC|Melotron|Lebe ungew�hnlich|277092
+MUSIC|Melotron|Lebe ungewöhnlich|277092
 MUSIC|Mesh|Four Walls|248808
 MUSIC|Metronomy|Everything Goes My Way|193908
 MUSIC|Mikrofisch|I Like You|268596
@@ -282,11 +282,11 @@ MUSIC|Totally Radd!!|Video Store|131232
 MUSIC|Towers Of London|Air Guitar|154920
 MUSIC|Treetop Flyers|She's Gotta Run|174036
 MUSIC|Turbo A.C.s|HKWC|222156
-MUSIC|Turbostaat|F�nfw�rstchengriff|142668
+MUSIC|Turbostaat|Fünfwürstchengriff|142668
 MUSIC|Uncle Frank|Step Into My Room|215858
 MUSIC|United Balls|Pogo in Togo|192240
 MUSIC|UNKLE|Unreal|305580
-MUSIC|van Dannen, Funny|Freunde der Realit�t|184860
+MUSIC|van Dannen, Funny|Freunde der Realität|184860
 MUSIC|Vangaalen,Chad|Clinically Dead|133260
 MUSIC|Vortex Rex|Freeway Girl|145476
 MUSIC|We Have Band|Oh! (Radio Edit)|183612
