@@ -179,7 +179,7 @@ def get_clean_xmltime(str):
     return re.sub(r'\..*?\+', '+', str)
 
 # Create <track>-element for XSPF. This is only a fragment, not valid XSPF
-def create_xspf(artist, song, group, ms, utc_date):
+def create_xspf_track(artist, song, group, ms, utc_date):
     date = utc_date.astimezone(PYTZ_OUTPUT_TIMEZONE)
     date_str = get_clean_xmltime(date.isoformat())
     xmltitle = "\t<title>"+song+"</title>\n"
@@ -192,7 +192,7 @@ def create_xspf(artist, song, group, ms, utc_date):
 
 # Create plain-text key/value output. Depends on the options at starttime
 # it creates the full file (like vorbis-format) and/or webserver files.
-def create_plain(artist, song, group, ms, utc_date):
+def create_plain_output(artist, song, group, ms, utc_date):
     date = utc_date.astimezone(PYTZ_OUTPUT_TIMEZONE)
     creator = "artist="+artist+"\n"
     title = "title="+song+"\n"
@@ -296,10 +296,10 @@ while True:
             
             if CREATE_XSPF:
                 debug("Creating XSPF output")
-                create_xspf(artist, song, group, ms, date)
+                create_xspf_track(artist, song, group, ms, date)
             
             if CREATE_WEB or CREATE_TEXT:
-                create_plain(artist, song, group, ms, date)
+                create_plain_output(artist, song, group, ms, date)
             
         else:
             debug("Excluding GROUP: _" + group + "_")
