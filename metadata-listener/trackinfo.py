@@ -28,11 +28,30 @@ def debug(string):
     if DEBUG:
         error_print(string)
 
+# TODO: Exceptions permission, etc
+def open_file(filename):
+    result = []
+    try:
+        readfile = open(filename, 'r')
+        for line in readfile:
+            result.append(line)
+    except IOError, e:
+        errorcode=e[0]
+        errordesc=e[1]
+        error_print("Error: " + errordesc + " [" + `errorcode` + "]")
+        # TODO: Dateirechte etc behandeln
+        sys.exit(1)
+    except Exception, e:
+        error_print("Error: " + `e`)
+#        error_print(type(e).__name__ +": " + `e[0]`)
+        sys.exit(1)
+    return result
+
 # Methoden, die vom OptionParser aufgerufen werden sollen
 # auslagern in neues trackinfo?
 def print_vorbis(option, opt, value, parser):
     debug("vorbis: deprecated")
-    plain_file = open(PLAIN_FRAGMENT_FILENAME,'r')
+    plain_file = open_file(PLAIN_FRAGMENT_FILENAME)
     output = ""
     for line in plain_file:
         if "artist" in line:
@@ -43,7 +62,7 @@ def print_vorbis(option, opt, value, parser):
     print output
 
 def print_plain(option, opt, value, parser):
-    plain_file = open(PLAIN_FRAGMENT_FILENAME,'r')
+    plain_file = open_file(PLAIN_FRAGMENT_FILENAME,'r')
     output = ""
     for line in plain_file:
         output = output + line
@@ -51,7 +70,7 @@ def print_plain(option, opt, value, parser):
 
 def print_stream(option, opt, value, parser):
     debug("stream: deprecated")
-    plain_file = open(PLAIN_FRAGMENT_FILENAME,'r')
+    plain_file = open_file(PLAIN_FRAGMENT_FILENAME)
     output = ""
     for line in plain_file:
         if "artist" in line:
@@ -62,21 +81,21 @@ def print_stream(option, opt, value, parser):
     print output.rstrip('\n')
 
 def print_current_artist(option, opt, value, parser):
-    plain_file = open(CURRENT_ARTIST_FILENAME,'r')
+    plain_file = open_file(CURRENT_ARTIST_FILENAME)
     output = ""
     for line in plain_file:
         output = output + line
     print output.rstrip('\n')
     
 def print_current_title(option, opt, value, parser):
-    plain_file = open(CURRENT_TITLE_FILENAME,'r')
+    plain_file = open_file(CURRENT_TITLE_FILENAME)
     output = ""
     for line in plain_file:
         output = output + line
     print output.rstrip('\n')
     
 def print_xspf(option, opt, value, parser):
-    xspf_file = open(XSPF_FRAGMENT_FILENAME,'r')
+    xspf_file = open_file(XSPF_FRAGMENT_FILENAME)
     output = ""
     for line in xspf_file:
         output = output + line
