@@ -37,6 +37,7 @@ if [ $# -eq 1 ]; then
     # if the found ID is a number, save it as new value in $LOG_LINE
     if [[ $ID =~ $REGEXP_NUMBER ]] ; then
         LOG_LINE=$ID
+        # TODO: +1
     else
         echo "error:[${ID}] Not a number" >&2; exit 1
     fi
@@ -53,7 +54,7 @@ fi
 #
 # mach: 1=Main Log (we only use the main log)
 # logname: Date with underscores e.g. 2014_08_31
-echo 'rmlsend "LL 1 $NOW_DATE $LOG_LINE"!'
+echo 'rmlsend "LL 1 '$NOW_DATE $LOG_LINE'"!'
 rmlsend "LL 1 $NOW_DATE $LOG_LINE"!
 
 # Wait, until Rivendell load the playlist
