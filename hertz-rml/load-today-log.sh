@@ -13,21 +13,23 @@ LOG_LINE=2
 # get the date in the form Rivendell use it: 2014_08_31
 NOW_DATE=$(date +%Y_%m_%d)
 
-ID="None"
-
 # Accept a marker name
 if [ $# -gt 0 ]; then
-  MARKER_NAME=$1
-  SQL='SELECT ID FROM '${NOW_DATE}'_LOG L WHERE COMMENT LIKE "%'${MARKER_NAME}'%"'
-  ID=$(echo $SQL | mysql -h localhost Rivendell | grep -v ID)
+
+    MARKER_NAME=$1
+    SQL='SELECT ID FROM '${NOW_DATE}'_LOG L WHERE COMMENT LIKE "%'${MARKER_NAME}'%"'
+    ID=$(echo $SQL | mysql -h localhost Rivendell | grep -v ID)
+    # Check, Number
+    REGEXP_NUMBER='^[0-9]+$'
+
+    if [[ $ID =~ $REGEXP_NUMBER ]] ; then
+        LOG_LINE=$ID
+        echo "error: Not a number" >&2; exit 1
+    fi
+
 fi
 
-# Check, Number
-REGEXP_NUMBER='^[0-9]+$'
-if [[ $ID =~ $REGEXP_NUMBER ]] ; then
-   LOG_LINE=$ID
-   echo "error: Not a number" >&2; exit 1
-fi
+
 
 # Load the Log from today.
 # LL <mach> <logname>
