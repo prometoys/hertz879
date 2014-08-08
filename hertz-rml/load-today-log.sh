@@ -36,8 +36,7 @@ if [ $# -eq 1 ]; then
 
     # if the found ID is a number, save it as new value in $LOG_LINE
     if [[ $ID =~ $REGEXP_NUMBER ]] ; then
-        LOG_LINE=$ID
-        # TODO: +1
+        LOG_LINE=$(($ID+1))
     else
         echo "error:[${ID}] Not a number" >&2; exit 1
     fi
