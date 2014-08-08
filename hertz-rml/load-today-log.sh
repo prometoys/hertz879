@@ -53,7 +53,8 @@ fi
 #
 # mach: 1=Main Log (we only use the main log)
 # logname: Date with underscores e.g. 2014_08_31
-echo rmlsend "LL 1 $NOW_DATE $LOG_LINE"!
+echo 'rmlsend "LL 1 $NOW_DATE $LOG_LINE"!'
+rmlsend "LL 1 $NOW_DATE $LOG_LINE"!
 
 # Wait, until Rivendell load the playlist
 sleep 1
@@ -71,7 +72,8 @@ sleep 1
 
 # PM: Set RDAirplay Mode:
 # 1 = LiveAssist, 2 = Auto, 3 = Manual.
-echo rmlsend "PM 2"!
+echo 'rmlsend "PM 2"!'
+rmlsend "PM 2"!
 
 
 
