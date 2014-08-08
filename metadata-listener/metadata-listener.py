@@ -60,7 +60,7 @@ UDP_PORT = 5000
 # nachsehen in rdadmin -> Manage Groups
 # Groß- und Kleinschreibung beachten.
 
-WANTED_GROUPS = ["MUSIC", "MusikArchiv", "WORT", "TRAFFIC", "SHOWS", "IDENTS"]
+WANTED_GROUPS = ["MUSIC", "MusikArchiv", "WORT", "TRAFFIC", "SHOWS", "IDENTS", "TEASER"]
 
 # TODO: Pfade via Variable
 
