@@ -6,8 +6,9 @@
 if [ $# -gt 0 ]; then
 
     if ! [[ $@ = "-" ]] ;then
-        echo 'rmlsend "LB '$@' "!'
-        rmlsend "LB $@ "!
+        SONG=$@
+        echo 'rmlsend "LB '$SONG' "!'
+        rmlsend "LB $SONG "!
     fi
 else
     # Error output, if more then one argument is given at start time
