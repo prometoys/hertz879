@@ -6,9 +6,16 @@
 if [ $# -gt 0 ]; then
 
     if ! [[ $@ = "-" ]] ;then
-        SONG="Das war: $@"
+        SONG=$@
         echo 'rmlsend "LB '$SONG' "!'
-        rmlsend "LB $SONG "!
+        #rmlsend "LB $SONG "!
+        echo $SONG > /tmp/lastsong
+    else
+        SONG="Das war: `cat /tmp/lastsong`"
+        if ! [[ SONG = "Das war: " ]] ;then
+            echo 'rmlsend "LB '$SONG' "!'
+            rmlsend "LB $SONG "!
+        fi
     fi
 else
     # Error output, if more then one argument is given at start time
