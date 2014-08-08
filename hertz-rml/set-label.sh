@@ -6,7 +6,7 @@
 if [ $# -gt 0 ]; then
 
     if ! [[ $@ = "-" ]] ;then
-        SONG=$@
+        SONG="Das war: $@"
         echo 'rmlsend "LB '$SONG' "!'
         rmlsend "LB $SONG "!
     fi
