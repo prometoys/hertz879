@@ -4,6 +4,7 @@ import socket
 import re
 import sys, errno, os
 import pytz # required package: python-tz
+from xml.sax.saxutils import escape
 
 from datetime import datetime
 from optparse import OptionParser
@@ -63,8 +64,11 @@ UDP_PORT = 5000
 WANTED_GROUPS = ["MUSIC", "MusikArchiv", "WORT", "TRAFFIC", "SHOWS", "IDENTS", "TEASER"]
 
 # TODO: Pfade via Variable
+#HIRSE_HOME="/home/ices/"
+HIRSE_HOME=""
 
-TMP_DIR="tmp/"
+PID_FILE=HIRSE_HOME+"run/hertz-metadata-listener.pid"
+TMP_DIR=HIRSE_HOME+"tmp/"
 XSPF_FRAGMENT_FILENAME=TMP_DIR+'xspf-current-fragment'
 PLAIN_FRAGMENT_FILENAME=TMP_DIR+'plain-current-fragment'
 CURRENT_ARTIST_FILENAME=TMP_DIR+'current.artist'
@@ -73,17 +77,35 @@ CURRENT_TITLE_FILENAME=TMP_DIR+'current.title'
 # Timezone for pytz. In an ideal world should be generated automatically.
 LOCAL_TIMEZONE = "Europe/Berlin"
 
+
 # TODO: Fehlermeldungen/Debug optional in Logdatei
 # http://stackoverflow.com/questions/6579496/using-print-statements-only-to-debug
 # https://docs.python.org/2/howto/logging.html
 
+# TODO: Output korrekt an log-datei (via stdout/stderr)
 # Debug-Funktion
 def error_print(string):
-    print >> sys.stderr, string
+    # print >> sys.stderr, string
+    print string
 
 def debug(string):
     if option.verbose:
         error_print(string)
+
+def writePidFile():
+    pid = str(os.getpid())
+    f = open(PID_FILE, 'w')
+    f.write(pid)
+    f.close()
+
+def deletePidFile():
+    if os.path.isfile(PID_FILE):
+        os.remove(PID_FILE)
+    
+
+def clean_exit(int):
+    deletePidFile()
+    sys.exit(int)
 
 # Optionen zuweisen, die später ausgewertet werden sollen/können.
 # TODO: use argparser instead?
@@ -123,6 +145,9 @@ debug("xspf: " + STATUS[int(option.xspf)])
 
 if not option.web and not option.text and not option.xspf:   # Kein Output aktiviert
     parser.error('No output selected.\n\t\t\t     Use at least one of -t, -w and/or -x')
+
+# Lege PID-file an
+writePidFile()
 
 # Werte aus den Kommandozeilen-Optionen für das Skript übernehmen
 UDP_IP=option.ip
@@ -167,11 +192,11 @@ def write_file(string, dir, filename):
         errordesc=e[1]
         error_print("Error: " + errordesc + " [" + `errorcode` + "]")
         # TODO: Dateirechte etc behandeln
-        sys.exit(1)
+        clean_exit(1)
     except Exception, e:
         error_print("Error: " + `e`)
 #        error_print(type(e).__name__ +": " + `e[0]`)
-        sys.exit(1)
+        clean_exit(1)
 
 # Generate pytz-timezone object for conversion
 PYTZ_OUTPUT_TIMEZONE=pytz.timezone(LOCAL_TIMEZONE)
@@ -184,8 +209,8 @@ def get_clean_xmltime(str):
 def create_xspf_track(artist, song, group, ms, utc_date):
     date = utc_date.astimezone(PYTZ_OUTPUT_TIMEZONE)
     date_str = get_clean_xmltime(date.isoformat())
-    xmltitle = "\t<title>"+song+"</title>\n"
-    xmlcreator = "\t<creator>"+artist+"</creator>\n"
+    xmltitle = "\t<title>"+escape(song).decode("utf8").encode('ascii', 'xmlcharrefreplace')+"</title>\n"
+    xmlcreator = "\t<creator>"+escape(artist).decode("utf8").encode('ascii', 'xmlcharrefreplace')+"</creator>\n"
     xmlduration = "\t<duration>"+ms+"</duration>\n"
     xmlmeta = "\t<meta rel=\""+XSPF_META_TIMESTAMP_STRING+"\">"+date_str+"</meta>\n"
     xmltrack = "<track>\n" + xmltitle + xmlcreator + xmlduration + xmlmeta + "</track>\n"
@@ -247,23 +272,23 @@ except socket.error, e:
     if errorcode == errno.EADDRINUSE:
         error_print(SOCK_ERR_STR + errordesc)
         # Spezieller Exitcode für die Bash, damit wir in dem Fall warten können.
-        sys.exit(5)
+        clean_exit(5)
     elif errorcode == socket.EAI_NODATA or errno.EACCES:
          error_print(SOCK_ERR_STR + errordesc)
     elif errorcode == socket.EAI_ADDRFAMILY:
          error_print(SOCK_ERR_STR + errordesc + ". No IPv6 support, yet.")
     else:
         error_print(SOCK_ERR_STR + " Error " + `errorcode` + ", " + errordesc)
-    sys.exit(1)
+    clean_exit(1)
 except OverflowError, e:
     # Wir wollen nur die Beschreibung "port must be 0-65535" aus
     # OverflowError('getsockaddrarg: port must be 0-65535.',)
     errordesc=e[0].split("'")[0].split(":")[1]
     error_print("["+UDP_STRING + "]: " + errordesc)
-    sys.exit(1)
+    clean_exit(1)
 except Exception, e:
     error_print("Unknown Error: " + `e`)
-    sys.exit(1)
+    clean_exit(1)
 
 # Variablen die zur Auswertung benötigt werden
 artist = ""

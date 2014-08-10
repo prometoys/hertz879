@@ -57,12 +57,12 @@ def print_vorbis(option, opt, value, parser):
         if "artist" in line:
             output = output + line
         if "title" in line:
-            output = output + "title=" + line
+            output = output + line
 # without .rstrip('\n') to be conform with old trackinfo output
     print output
 
 def print_plain(option, opt, value, parser):
-    plain_file = open_file(PLAIN_FRAGMENT_FILENAME,'r')
+    plain_file = open_file(PLAIN_FRAGMENT_FILENAME)
     output = ""
     for line in plain_file:
         output = output + line
