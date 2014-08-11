@@ -11,7 +11,8 @@ from optparse import OptionParser
 # stream/vorbis sind deprecated
 
 # TODO: Read path from config file (.hirse.rc)
-TMP_DIR="tmp/"
+HIRSE_HOME="/home/ices/"
+TMP_DIR=HIRSE_HOME+"tmp/"
 XSPF_FRAGMENT_FILENAME=TMP_DIR+'xspf-current-fragment'
 PLAIN_FRAGMENT_FILENAME=TMP_DIR+'plain-current-fragment'
 CURRENT_ARTIST_FILENAME=TMP_DIR+'current.artist'
