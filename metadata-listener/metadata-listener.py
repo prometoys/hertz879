@@ -36,14 +36,14 @@ from optparse import OptionParser
 # UDP_IP = "127.0.0.1" 
 #
 # Auf allen Netzwerk-Geräten lauschen
-# UDP_IP = ""
+# UDP_IP = "0.0.0.0"
 #
 # Vorgabe: IP des Netzwerk-Devices, was die Verbindung zwischen Studio- und 
 # Streamrechner erstellt. 
 
 # UDP_IP = "129.70.176.39"
 
-UDP_IP = ""
+UDP_IP = "129.70.176.39"
 
 # UDP_PORT:
 # ---------
@@ -64,8 +64,7 @@ UDP_PORT = 5000
 WANTED_GROUPS = ["MUSIC", "MusikArchiv", "WORT", "TRAFFIC", "SHOWS", "IDENTS", "TEASER"]
 
 # TODO: Pfade via Variable
-#HIRSE_HOME="/home/ices/"
-HIRSE_HOME=""
+HIRSE_HOME="/home/ices/"
 
 PID_FILE=HIRSE_HOME+"run/hertz-metadata-listener.pid"
 TMP_DIR=HIRSE_HOME+"tmp/"
@@ -185,7 +184,8 @@ def write_file(string, dir, filename):
         if not os.path.isdir(dir):
             os.makedirs(dir)
         outputfile = open(filename, 'w')
-        outputfile.write(string)
+        outdata = string.encode('utf-8')
+        outputfile.write(outdata)
         outputfile.close()
     except IOError, e:
         errorcode=e[0]
@@ -193,10 +193,10 @@ def write_file(string, dir, filename):
         error_print("Error: " + errordesc + " [" + `errorcode` + "]")
         # TODO: Dateirechte etc behandeln
         clean_exit(1)
-    except Exception, e:
-        error_print("Error: " + `e`)
+#    except Exception, e:
+#        error_print("Error: " + `e`)
 #        error_print(type(e).__name__ +": " + `e[0]`)
-        clean_exit(1)
+#        clean_exit(1)
 
 # Generate pytz-timezone object for conversion
 PYTZ_OUTPUT_TIMEZONE=pytz.timezone(LOCAL_TIMEZONE)
@@ -209,13 +209,26 @@ def get_clean_xmltime(str):
 def create_xspf_track(artist, song, group, ms, utc_date):
     date = utc_date.astimezone(PYTZ_OUTPUT_TIMEZONE)
     date_str = get_clean_xmltime(date.isoformat())
-    xmltitle = "\t<title>"+escape(song).decode("utf8").encode('ascii', 'xmlcharrefreplace')+"</title>\n"
-    xmlcreator = "\t<creator>"+escape(artist).decode("utf8").encode('ascii', 'xmlcharrefreplace')+"</creator>\n"
-    xmlduration = "\t<duration>"+ms+"</duration>\n"
-    xmlmeta = "\t<meta rel=\""+XSPF_META_TIMESTAMP_STRING+"\">"+date_str+"</meta>\n"
+    
+    # TODO: remove unicode testing
+    try:
+        xmltitle = "\t<title>"+escape(song)+"</title>\n"
+        xmlcreator = "\t<creator>"+escape(artist)+"</creator>\n"
+        xmlduration = "\t<duration>"+ms+"</duration>\n"
+        xmlmeta = "\t<meta rel=\""+XSPF_META_TIMESTAMP_STRING+"\">"+date_str+"</meta>\n"
+    except Exception, e:
+        error_print("Create XSPF Error: " + `e`)
+        xmltitle = "\t<title>Unknown Song</title>\n"
+        xmlcreator = "\t<creator>Unknown Artist</creator>\n"
+        xmlduration = "\t<duration>0</duration>\n"
+        xmlmeta = "\t<meta rel=\""+XSPF_META_TIMESTAMP_STRING+"\">"+date_str+"</meta>\n"
+
     xmltrack = "<track>\n" + xmltitle + xmlcreator + xmlduration + xmlmeta + "</track>\n"
     debug("----------------\nXSPF output:\n" + xmltrack + "----------------")
+    debug("try to write xspf output")
     write_file(xmltrack, TMP_DIR, XSPF_FRAGMENT_FILENAME)
+    debug("finished xspf output")
+
 
 # Create plain-text key/value output. Depends on the options at starttime
 # it creates the full file (like vorbis-format) and/or webserver files.
@@ -300,7 +313,8 @@ ms = ""
 while True:
     try:
         debug('Listening on '+UDP_STRING) 
-        data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
+        incoming, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
+        data = incoming.decode('iso-8859-1')
         debug('Received message from '+ `addr` + ': ' + data )
         
         # Empfangene Zeichenkette aufteilen.
@@ -326,6 +340,7 @@ while True:
                 create_xspf_track(artist, song, group, ms, date)
             
             if CREATE_WEB or CREATE_TEXT:
+                debug("Creating WEB/TEXT output")
                 create_plain_output(artist, song, group, ms, date)
             
         else:
