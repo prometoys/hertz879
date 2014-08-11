@@ -87,7 +87,7 @@ def write_file(string, dir, filename):
         if not os.path.isdir(dir):
             os.makedirs(dir)
         outputfile = open(filename, 'w')
-        outdata = string.encode('utf-8')
+        outdata = string
         outputfile.write(outdata)
         outputfile.close()
     except IOError:
