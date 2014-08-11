@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
 from __future__ import print_function
-# from __future__ import unicode_literals #  for python2/3 compat TODO
+from __future__ import unicode_literals
 import socket
 import re
 import sys, errno, os
@@ -87,7 +87,7 @@ def write_file(string, dir, filename):
         if not os.path.isdir(dir):
             os.makedirs(dir)
         outputfile = open(filename, 'w')
-        outdata = string.encode('utf-8') # TODO: Python3 portable
+        outdata = string.encode('utf-8')
         outputfile.write(outdata)
         outputfile.close()
     except IOError:
@@ -119,6 +119,7 @@ def writePidFile():
     write_file(pid, PID_FILE_DIR, PID_FILE)
 
 def deletePidFile():
+# TODO: Exception handling
     pid_fullpath=PID_FILE_DIR+PID_FILE
     if os.path.isfile(pid_fullpath):
         os.remove(pid_fullpath)
@@ -318,7 +319,8 @@ while True:
         #TODO: Nur pakte vom studiorechner annehmen
         # pseudocode: if addr=studio-pc-ip, then data = incoming, else drop
         
-        data = incoming.decode('iso-8859-15')
+        # We expect ISO-8859-15 from Rivendell, we ignore everything outside
+        data = incoming.decode('iso-8859-15','ignore')
         debug('Received message from '+ repr(addr) + ': ' + data )
         
         # Empfangene Zeichenkette aufteilen.
