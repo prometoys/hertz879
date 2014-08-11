@@ -1,10 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
+from __future__ import print_function
+# from __future__ import unicode_literals #  for python2/3 compat TODO
 import socket
 import re
 import sys, errno, os
 import pytz # required package: python-tz
 from xml.sax.saxutils import escape
+
 
 from datetime import datetime
 from optparse import OptionParser
@@ -43,7 +46,7 @@ from optparse import OptionParser
 
 # UDP_IP = "129.70.176.39"
 
-UDP_IP = "129.70.176.39"
+UDP_IP = "0.0.0.0"
 
 # UDP_PORT:
 # ---------
@@ -64,9 +67,11 @@ UDP_PORT = 5000
 WANTED_GROUPS = ["MUSIC", "MusikArchiv", "WORT", "TRAFFIC", "SHOWS", "IDENTS", "TEASER"]
 
 # TODO: Pfade via Variable
-HIRSE_HOME="/home/ices/"
+#HIRSE_HOME="/home/ices/"
+HIRSE_HOME=""
 
-PID_FILE=HIRSE_HOME+"run/hertz-metadata-listener.pid"
+PID_FILE_DIR=HIRSE_HOME+"run/"
+PID_FILE="hertz-metadata-listener.pid"
 TMP_DIR=HIRSE_HOME+"tmp/"
 XSPF_FRAGMENT_FILENAME=TMP_DIR+'xspf-current-fragment'
 PLAIN_FRAGMENT_FILENAME=TMP_DIR+'plain-current-fragment'
@@ -76,6 +81,24 @@ CURRENT_TITLE_FILENAME=TMP_DIR+'current.title'
 # Timezone for pytz. In an ideal world should be generated automatically.
 LOCAL_TIMEZONE = "Europe/Berlin"
 
+# TODO: Exceptions permission, etc
+def write_file(string, dir, filename):
+    try:
+        if not os.path.isdir(dir):
+            os.makedirs(dir)
+        outputfile = open(filename, 'w')
+        outdata = string.encode('utf-8') # TODO: Python3 portable
+        outputfile.write(outdata)
+        outputfile.close()
+    except IOError:
+        e = sys.exc_info()[1]
+        error_print("Error: " + e.strerror + " [" + repr(e.errno) + "]")
+        # TODO: Dateirechte etc behandeln
+        clean_exit(1)
+    except Exception:
+        e = sys.exc_info()[1]
+        error_print("Error: " + repr(e))
+        clean_exit(1)
 
 # TODO: Fehlermeldungen/Debug optional in Logdatei
 # http://stackoverflow.com/questions/6579496/using-print-statements-only-to-debug
@@ -83,23 +106,22 @@ LOCAL_TIMEZONE = "Europe/Berlin"
 
 # TODO: Output korrekt an log-datei (via stdout/stderr)
 # Debug-Funktion
-def error_print(string):
-    # print >> sys.stderr, string
-    print string
+def error_print(*strings):
+    # print (strings, file=sys.stderr) # logging in der shell fixen, dann auskommentieren
+    print(*strings)
 
-def debug(string):
+def debug(*strings):
     if option.verbose:
-        error_print(string)
+        error_print(*strings)
 
 def writePidFile():
     pid = str(os.getpid())
-    f = open(PID_FILE, 'w')
-    f.write(pid)
-    f.close()
+    write_file(pid, PID_FILE_DIR, PID_FILE)
 
 def deletePidFile():
-    if os.path.isfile(PID_FILE):
-        os.remove(PID_FILE)
+    pid_fullpath=PID_FILE_DIR+PID_FILE
+    if os.path.isfile(pid_fullpath):
+        os.remove(pid_fullpath)
     
 
 def clean_exit(int):
@@ -178,25 +200,6 @@ XSPF_META_TIMESTAMP_STRING="http://radio.uni-bielefeld.de/xspf/timestamp"
 # Datei schreiben. Nimmt vorbereiten String, Pfad und Dateiname entgegen.
 # Die Ausgabe-Datei wird überschrieben.
 
-# TODO: Exceptions permission, etc
-def write_file(string, dir, filename):
-    try:
-        if not os.path.isdir(dir):
-            os.makedirs(dir)
-        outputfile = open(filename, 'w')
-        outdata = string.encode('utf-8')
-        outputfile.write(outdata)
-        outputfile.close()
-    except IOError, e:
-        errorcode=e[0]
-        errordesc=e[1]
-        error_print("Error: " + errordesc + " [" + `errorcode` + "]")
-        # TODO: Dateirechte etc behandeln
-        clean_exit(1)
-#    except Exception, e:
-#        error_print("Error: " + `e`)
-#        error_print(type(e).__name__ +": " + `e[0]`)
-#        clean_exit(1)
 
 # Generate pytz-timezone object for conversion
 PYTZ_OUTPUT_TIMEZONE=pytz.timezone(LOCAL_TIMEZONE)
@@ -216,8 +219,9 @@ def create_xspf_track(artist, song, group, ms, utc_date):
         xmlcreator = "\t<creator>"+escape(artist)+"</creator>\n"
         xmlduration = "\t<duration>"+ms+"</duration>\n"
         xmlmeta = "\t<meta rel=\""+XSPF_META_TIMESTAMP_STRING+"\">"+date_str+"</meta>\n"
-    except Exception, e:
-        error_print("Create XSPF Error: " + `e`)
+    except Exception:
+        e = sys.exc_info()[1]
+        error_print("Create XSPF Error: " + repr(e))
         xmltitle = "\t<title>Unknown Song</title>\n"
         xmlcreator = "\t<creator>Unknown Artist</creator>\n"
         xmlduration = "\t<duration>0</duration>\n"
@@ -225,10 +229,7 @@ def create_xspf_track(artist, song, group, ms, utc_date):
 
     xmltrack = "<track>\n" + xmltitle + xmlcreator + xmlduration + xmlmeta + "</track>\n"
     debug("----------------\nXSPF output:\n" + xmltrack + "----------------")
-    debug("try to write xspf output")
     write_file(xmltrack, TMP_DIR, XSPF_FRAGMENT_FILENAME)
-    debug("finished xspf output")
-
 
 # Create plain-text key/value output. Depends on the options at starttime
 # it creates the full file (like vorbis-format) and/or webserver files.
@@ -238,10 +239,10 @@ def create_plain_output(artist, song, group, ms, utc_date):
     title = "title="+song+"\n"
     genre = "genre="+group+"\n"
     # Hier wollen wir nur die Sekunden.
-    duration = "playTime="+`int(round(int(ms)/1000.))`+"\n"
-    year = "startYear="+`date.year`+"\n"
-    month = "startMonth="+`date.month`+"\n"
-    day = "startDay="+`date.day`+"\n"
+    duration = "playTime="+repr(int(round(int(ms)/1000.)))+"\n"
+    year = "startYear="+repr(date.year)+"\n"
+    month = "startMonth="+repr(date.month)+"\n"
+    day = "startDay="+repr(date.day)+"\n"
     time = "startTime="+date.strftime("%H:%M:%S")+"\n"
     comment = 'comment=\n'
 
@@ -261,10 +262,7 @@ def create_plain_output(artist, song, group, ms, utc_date):
 #sock.bind((UDP_IP, UDP_PORT))
 
 # Diese Zeichenkette UDP_STRING dient nur für eine verständlichen Fehlermeldung.
-if UDP_IP=="":
-    UDP_STRING= '*:'+`UDP_PORT`
-else:
-    UDP_STRING= UDP_IP+':'+`UDP_PORT`
+UDP_STRING= UDP_IP+':'+repr(UDP_PORT)
 
 # Hier lauscht das Skript konkret auf der angegebenen IP/PORT
 # TODO: IPv6 ?? -> Kann Rivendell nicht.
@@ -276,10 +274,11 @@ try:
     sock = socket.socket(socket.AF_INET, # Internet
                          socket.SOCK_DGRAM) # UDP
     sock.bind((UDP_IP, UDP_PORT))
-except socket.error, e:
+except socket.error:
+    e = sys.exc_info()[1]
     SOCK_ERR_STR = "[" + UDP_STRING +"]: "
-    errorcode=e[0]
-    errordesc=e[1]
+    errorcode=e.errno
+    errordesc=e.strerror
     # Fehler, die nicht zu einem exit führen sollen, sind hier nicht vorgesehen
     # Sonst sys.exit in die entsprechenden if-teile reinverschieben.
     if errorcode == errno.EADDRINUSE:
@@ -291,16 +290,18 @@ except socket.error, e:
     elif errorcode == socket.EAI_ADDRFAMILY:
          error_print(SOCK_ERR_STR + errordesc + ". No IPv6 support, yet.")
     else:
-        error_print(SOCK_ERR_STR + " Error " + `errorcode` + ", " + errordesc)
+        error_print(SOCK_ERR_STR + " Error " + repr(errorcode) + ", " + errordesc)
     clean_exit(1)
-except OverflowError, e:
+except OverflowError:
+    e = sys.exc_info()[1]
     # Wir wollen nur die Beschreibung "port must be 0-65535" aus
     # OverflowError('getsockaddrarg: port must be 0-65535.',)
-    errordesc=e[0].split("'")[0].split(":")[1]
+    errordesc=repr(e).split("'")[1].split(":")[1]
     error_print("["+UDP_STRING + "]: " + errordesc)
     clean_exit(1)
-except Exception, e:
-    error_print("Unknown Error: " + `e`)
+except Exception:
+    e = sys.exc_info()[1]
+    error_print("Unknown Error: " + repr(e))
     clean_exit(1)
 
 # Variablen die zur Auswertung benötigt werden
@@ -314,8 +315,11 @@ while True:
     try:
         debug('Listening on '+UDP_STRING) 
         incoming, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-        data = incoming.decode('iso-8859-1')
-        debug('Received message from '+ `addr` + ': ' + data )
+        #TODO: Nur pakte vom studiorechner annehmen
+        # pseudocode: if addr=studio-pc-ip, then data = incoming, else drop
+        
+        data = incoming.decode('iso-8859-15')
+        debug('Received message from '+ repr(addr) + ': ' + data )
         
         # Empfangene Zeichenkette aufteilen.
         try:
@@ -343,6 +347,7 @@ while True:
                 debug("Creating WEB/TEXT output")
                 create_plain_output(artist, song, group, ms, date)
             
+            # TODO: run-parts  ${HIRSE_META_SCRIPT_DIR} ??
         else:
             debug("Excluding GROUP: _" + group + "_")
         
@@ -353,5 +358,14 @@ while True:
     except KeyboardInterrupt:
         debug("\nExit listener by user interrupt.")
         exit(0)
+
+#TODO: kills erkennen und sauber beenden
+
+#TODO: main methode
+#def main(argv):
+#    pass
+
+#if __name__ == "__main__":
+#    main(sys.argv)
 
 
