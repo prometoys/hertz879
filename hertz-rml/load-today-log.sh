@@ -29,7 +29,7 @@ if [ $# -eq 1 ]; then
 
     # SQL Code to search for a line with the specified label
     #SQL='SELECT '$ROW' FROM '${NOW_DATE}'_LOG L WHERE LABEL LIKE "%'${MARKER_LABEL}'%"'
-    SQL='SELECT '$ROW' FROM '${NOW_DATE}'_LOG L WHERE START_TIME LIKE '${TIME_MS}
+    SQL='SELECT '$ROW' FROM '${NOW_DATE}'_LOG L WHERE START_TIME <= '${TIME_MS}' ORDER BY START_TIME DESC'
 
     # only take the first found line number.
     ID=$(echo $SQL | mysql -h localhost Rivendell | grep  '^[0-9]\+$' | head -n 1)
