@@ -8,7 +8,7 @@ if [ $# -gt 0 ]; then
     if ! [[ $@ = "-" ]] ;then
         SONG=$@
         echo 'rmlsend "LB '$SONG' "!'
-        #rmlsend "LB $SONG "!
+        rmlsend "LB $SONG "!
         echo $SONG > /tmp/lastsong
     else
         SONG="Das war: `cat /tmp/lastsong`"

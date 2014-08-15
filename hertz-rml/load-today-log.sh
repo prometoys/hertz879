@@ -5,7 +5,9 @@
 # the playlist at this time, otherwise it starts with the third item (Line 2)
 # to avoid events at the beginning of the list, like scheduled shows.
 
-# expects MySQL credentials in ~/.my.cnf
+# expects MySQL credentials in file with path $MYSQL_CREDENTIALS
+    
+MYSQL_CREDENTIALS="/srv/rivendell/my.cnf";
 
 
 # FAILSAFE load line 2, if we didn't have or find the marker
@@ -26,13 +28,13 @@ if [ $# -eq 1 ]; then
     ROW="COUNT"
 
     TIME_MS=$(echo $START_TIME  | awk -F: '{ print ($1 * 3600 * 1000) + ($2 * 60 * 1000) }')
-
+    
     # SQL Code to search for a line with the specified label
     #SQL='SELECT '$ROW' FROM '${NOW_DATE}'_LOG L WHERE LABEL LIKE "%'${MARKER_LABEL}'%"'
     SQL='SELECT '$ROW' FROM '${NOW_DATE}'_LOG L WHERE START_TIME <= '${TIME_MS}' ORDER BY START_TIME DESC'
 
     # only take the first found line number.
-    ID=$(echo $SQL | mysql -h localhost Rivendell | grep  '^[0-9]\+$' | head -n 1)
+    ID=$(echo $SQL | mysql  --defaults-file=${MYSQL_CREDENTIALS} -h localhost Rivendell | grep  '^[0-9]\+$' | head -n 1)
 
     # Test expression for positive integer numbers
     REGEXP_NUMBER='^[0-9]+$'
