@@ -43,13 +43,13 @@ if [ $# -eq 1 ]; then
     if [[ $ID =~ $REGEXP_NUMBER ]] ; then
         LOG_LINE=$(($ID+1))
     else
-        echo "error:[${ID}] Not a number" >&2; exit 1
+        echo "\n\terror:[${ID}] Not a number\n" >&2; exit 1
     fi
 
 elif [ $# -gt 1 ]; then
     # Error output, if more then one argument is given at start time
     echo -e "\n\terror: max. one argument (marker label allowed)" >&2
-    echo -e "\n\tusage: ${0} [MARKER_LABEL]}\n" >&2
+    echo -e "\tusage: ${0} [MARKER_LABEL]}\n" >&2
     exit 1
 fi
 

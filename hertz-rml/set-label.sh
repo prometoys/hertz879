@@ -19,7 +19,7 @@ if [ $# -gt 0 ]; then
     fi
 else
     # Error output, if more then one argument is given at start time
-    echo -e "\n\terror: at least. one argument (track info)" >&2
+    echo -e "\n\terror: at least. one argument (track info) \n" >&2
     exit 1
 fi
 
