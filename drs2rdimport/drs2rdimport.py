@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-#from __future__ import unicode_literals
+from __future__ import unicode_literals
 import pandas as pd
 import numpy as np
 import re
@@ -178,11 +178,15 @@ def run_rdimport(my_db, my_dict, import_dir, simulate):
         # convert Windows URI to UNIX-style
         filepath_str = path_prefix + row['filepath'].replace("\\","/")
         
-        if (os.path.exists(filepath_str) or simulate):
+        group_str = row['group'].strip()
+        
+        file_exists = os.path.exists(filepath_str)
+        wanted_group = my_dict.has_key(group_str)
+                
+        if ((file_exists and wanted_group) or simulate):
             try:
                 # preparing metadata
                 
-                group_str = row['group'].strip()
                 title_str = row['title'].strip()
                 
                 year_str = str(row['year']).strip()
@@ -228,25 +232,34 @@ def run_rdimport(my_db, my_dict, import_dir, simulate):
                 rdimport_args.append("MUSIK")
                 rdimport_args.append(filepath_str)
                 
-                print("[INFO]: "+ " ".join(rdimport_args)+"\n")
+                try:
+                    #print(filepath_str)
+                    #.join((agent_contact, agent_telno)).encode('utf-8').strip()
+                    print(u" ".join(rdimport_args).encode('utf-8').strip()) #TODO: PROBLEM
+                    #print("[INFO]: "+ u" ".join((rdimport_args)).encode('utf-8').strip()+"\n")
+                except UnicodeEncodeError:
+                    print("mieserkleinererror")
+                    for item in rdimport_args:
+                        print(item.encode('utf-8'))
+                    sys.exit(1)
+                    
                 sys.stdout.flush()
-                #sp.call(rdimport_args)
+
                 p = sp.Popen(rdimport_args, bufsize=1)
                 p.communicate()
-                #(output, err) = p.communicate()
-                #p_status = p.wait()
-                
-                #print("Command output : ",output)
-                #print("Command exit status/return code : ", p_status)
  
             except KeyError:
-                print("[ERROR]: Group not found: " + quote_string(group_str))
-        # This else is, when the file isn't found
+                print("[ERROR]: Group not found: " + group_str)
+        
             except Exception:
                 print(sys.exc_info())
                 sys.exit(1)
-        else:
-            print("[ERROR]: File not found: "+ filepath_str+"\n")
+        # This else is, when the file isn't found
+	else:
+            try:
+                print("[ERROR]: File not found: "+ filepath_str+"\n")
+            except UnicodeEncodeError:
+                    print("oderhiereinerror")
         
 
 def main(argv):
@@ -265,7 +278,11 @@ def main(argv):
     
     if "--random" in argv:
         numbers=int(argv[2])
-        #drs_db = drs_db[drs_db['title'].str.contains('Friday')]
+        #drs_db = drs_db[(drs_db['title'].str.contains('ö|ä|ü')) | (drs_db['group'].str.contains('ö|ä|ü'))]
+        #drs_db = drs_db[drs_db['group'].str.contains('ö|ä|ü')]
+        
+        drs_db = drs_db[drs_db['filepath'].str.contains('ö|ä|ü')].head(1)
+        
         #drs_db = drs_db[drs_db['length_ms']>10000].head(5)
         #drs_db = drs_db[~drs_db['year'].str.contains('\d')].head(1)
         #drs_db = drs_db[drs_db['group'] == 'Nacht Hart']
