@@ -11,7 +11,8 @@ import csv
 import codecs
 import os
 import sys
-from subprocess import call
+import random
+import subprocess as sp
 
 pd.set_option('display.max_columns', 60)
 pd.set_option('display.max_rows', 1000)
@@ -84,10 +85,9 @@ def gen_transfertable(filename):
 # **Für die DRS-Gruppe die jeweiligen Scheduler Codes ausgeben und für `rdimport` aufbereiten** 
 
 def build_sched_codes(group_str, filepath_str, sc_dict, usrdef_str):
-    result = ""
+    result = []
     ud = "" + usrdef_str
     for sched_code in sc_dict[group_str]:
-        
         if "filepath" in sched_code:
             sched_str = ""
             if "Nacht-Hart" in filepath_str:
@@ -98,9 +98,12 @@ def build_sched_codes(group_str, filepath_str, sc_dict, usrdef_str):
                 sched_str = "xUncertain"
                 ud = ud + " nachpflege2014"
             sched_code = sched_str
-                
-        if sched_code:
-            result = "%s --add-scheduler-code=%s " % (result, sched_code)
+        elif "bettentauglich" in sched_code:
+            ud = ud + " bettentauglich"
+            sched_code = "sInstrumnt"
+        # check for double entries and if sched_code contains something
+        if not any(sched_code in s for s in result) and sched_code:
+            result.append("--add-scheduler-code=%s" % (sched_code))
     return result, ud
 
 
@@ -160,9 +163,14 @@ def build_db(filename, sep, qc, enc, s_rows):
 
 
 
-def run_rdimport(my_db, my_dict, import_dir):
+def run_rdimport(my_db, my_dict, import_dir, simulate):
+    
     path_prefix = import_dir
-    cmd_name = "echo rdimport"
+    cmd_name = ["rdimport"]
+    
+    if simulate:
+        cmd_name = ["echo","rdimport"]
+    
 
     # Create for each row in the database an rdimport 
     for index, row in my_db.iterrows():
@@ -170,58 +178,79 @@ def run_rdimport(my_db, my_dict, import_dir):
         # convert Windows URI to UNIX-style
         filepath_str = path_prefix + row['filepath'].replace("\\","/")
         
-        simulate = True
         if (os.path.exists(filepath_str) or simulate):
-            # preparing metadata
-            group_str = row['group']
-            title_str = quote_string(row['title'])
-            
-            year_tmp = str(row['year']).strip()
-            year_str = ""
-            if re.compile("\d{4}").match(year_tmp,0):
-                year_str = "--set-string-year=" + quote_string(year_tmp) 
-            
-            # Do we want move the words after comma to the beginning?
-            if True:
-                artist_tmp = word_move(row['artist'])
-            else:
-                artist_tmp = row['artist']
-            artist_str = quote_string(artist_tmp)
-            
-            user_defined_str = "2014tropmiotua"
-            
-            sched_code, user_defined_str = build_sched_codes(group_str, filepath_str, my_dict, user_defined_str)
-            
-            talktime_str = ""
-            if(row['intro_ms']>0):
-                talktime_str = "--set-marker-end-talk=" + str(row['intro_ms']) + "\
-         --set-marker-start-talk=0"
+            try:
+                # preparing metadata
                 
+                group_str = row['group'].strip()
+                title_str = row['title'].strip()
                 
-            # preparing rdimport string
-	    # TODO:  include --verbose switch --log-mode 
-            rdimport_string = " --verbose --log-mode --fix-broken-formats \
-    --set-user-defined="+ quote_string(user_defined_str) +" \
-    --set-string-artist="+ artist_str +" \
-    --set-string-title="+ title_str + " \
-    --set-string-description="+ title_str + " \
-    --set-string-album="+ quote_string(group_str) + " \
-    " + sched_code + talktime_str + " \
-    --set-marker-fadeup=" + str(row['fade_in'])  +" \
-    --set-marker-fadedown=" + str(row['cue_out_ms'])  +" \
-    --segue-length="+str(row['fade_out'])+" \
-    " + year_str + " \
-    --normalization-level=-13 \
-    --autotrim-level=-30 \
-    --segue-level=-12 \
-    MUSIK " + quote_string(filepath_str)
-            print("[INFO]: rdimport"+ rdimport_string+"\n")
-            call(cmd_name + rdimport_string , shell=True )
+                year_str = str(row['year']).strip()
+                if re.compile("\d{4}").match(year_str,0):
+                    year_str = "--set-string-year=" + year_str
+                
+                # Do we want move the words after comma to the beginning?
+                if True:
+                    artist_str = word_move(row['artist'])
+                else:
+                    artist_str = row['artist']
+                artist_str
+                
+                user_defined_str = "2014tropmiotua"
+                
+                sched_code, user_defined_str = build_sched_codes(group_str, filepath_str, my_dict, user_defined_str)
+                
+                talktime_arg = []
+                if(row['intro_ms']>0):
+                    talktime_arg = ["--set-marker-end-talk=" + str(row['intro_ms'])]
+                    talktime_arg.append("--set-marker-start-talk=0")
+                    
+                # preparing rdimport string
+                rdimport_args = [] + cmd_name
+                rdimport_args.append("--verbose",)
+                rdimport_args.append("--fix-broken-formats")
+                rdimport_args.append("--log-mode")
+                rdimport_args.append("--set-user-defined="+ user_defined_str)
+                rdimport_args.append("--set-string-artist="+ artist_str)
+                rdimport_args.append("--set-string-title="+ title_str)
+                rdimport_args.append("--set-string-description="+ title_str)
+                rdimport_args.append("--set-string-album="+ group_str)
+                rdimport_args = rdimport_args + sched_code
+                rdimport_args = rdimport_args + talktime_arg
+                rdimport_args.append("--set-marker-fadeup=" + str(row['fade_in']))
+                rdimport_args.append("--set-marker-fadedown=" + str(row['cue_out_ms']))
+                rdimport_args.append("--segue-length="+str(row['fade_out']).strip())
+                if year_str:
+                    rdimport_args.append(year_str) 
+                rdimport_args.append("--normalization-level=-13")
+                rdimport_args.append("--autotrim-level=-30")
+                rdimport_args.append("--segue-level=-12")
+                rdimport_args.append("MUSIK")
+                rdimport_args.append(filepath_str)
+                
+                print("[INFO]: "+ " ".join(rdimport_args)+"\n")
+                sys.stdout.flush()
+                #sp.call(rdimport_args)
+                p = sp.Popen(rdimport_args, bufsize=1)
+                p.communicate()
+                #(output, err) = p.communicate()
+                #p_status = p.wait()
+                
+                #print("Command output : ",output)
+                #print("Command exit status/return code : ", p_status)
+ 
+            except KeyError:
+                print("[ERROR]: Group not found: " + quote_string(group_str))
+        # This else is, when the file isn't found
+            except Exception:
+                print(sys.exc_info())
+                sys.exit(1)
         else:
             print("[ERROR]: File not found: "+ filepath_str+"\n")
         
 
 def main(argv):
+    
     transfertabe_filename = "schedcodes2014-transfertable.csv"
     drs_import_file = 'HRDat-2014-12.TXT'
     audio_import_dir = "/home/admin/ralfdata/Musik/"
@@ -233,31 +262,55 @@ def main(argv):
     # read_db(filename, sep, qc, enc, s_rows)
     drs_db =build_db(drs_import_file, ",", '"', "cp850", 0)
     
-    #print(len(drs_db.index))
-    #print(drs_db.head(3))
     
-    #drs_db = drs_db[drs_db['artist'].str.contains(',')].head(5)
-    #drs_db = drs_db[drs_db['fade_in']>0].head(5)
-    #drs_db = drs_db[~drs_db['year'].str.contains('\d')].head(1)
-
-    drs_db = drs_db.loc[3:3]
+    if "--random" in argv:
+        numbers=int(argv[2])
+        #drs_db = drs_db[drs_db['title'].str.contains('Honig')].head(5)
+        #drs_db = drs_db[drs_db['length_ms']>10000].head(5)
+        #drs_db = drs_db[~drs_db['year'].str.contains('\d')].head(1)
+        #drs_db = drs_db[drs_db['group'] == 'Nacht Hart']
+        
+        #print(len(drs_db.index))
+        #print(drs_db.head(3))
+        
+        #drs_db = drs_db.iloc[1:2]
+        
+        db_len = len(drs_db.index)
+        
+        minimum = min(db_len,numbers)
+        random_list = random.sample(xrange(db_len), minimum)
+        
+        # Print the selected index-numbers 
+        #print("Range:" +str(random_list))
+        
+        drs_db = drs_db.iloc[random_list]
+        
+        #print(drs_db.head())
+        
+        #drs_db = drs_db.head(numbers)
     
-    run_rdimport(drs_db, transfer_dict, audio_import_dir)
-
+    
+    if "--run" in argv:
+        run_rdimport(drs_db, transfer_dict, audio_import_dir, False)
+    elif "-s" in argv or "--simulate" in argv:
+        run_rdimport(drs_db, transfer_dict, audio_import_dir, True)
+    else:
+        print("Neither -s or --run, doing nothing.")
+    
 if __name__ == "__main__":
     main(sys.argv)
     
 
-    #### Old Database import syntax
-    ## New database file converted by LibreOffice Calc
-    #db = pd.read_csv('DatenPerfekt2014-12.csv', sep=";", dtype={'key':unicode}, names=colnames)
+#### Old Database import syntax
+## New database file converted by LibreOffice Calc
+#db = pd.read_csv('DatenPerfekt2014-12.csv', sep=";", dtype={'key':unicode}, names=colnames)
 
-    ## Original testfile. Convertet with Calc (mit skiprows, da hier noch ein Header eingetragen ist)
-    #db = pd.read_csv('DatenPerfektPandaHeader.csv', sep=";", dtype={'key':unicode}, names=colnames, skiprows=1)
+## Original testfile. Convertet with Calc (mit skiprows, da hier noch ein Header eingetragen ist)
+#db = pd.read_csv('DatenPerfektPandaHeader.csv', sep=";", dtype={'key':unicode}, names=colnames, skiprows=1)
 
-    ## Original export-file from DRS2006, fixed one row where album contained " (doublequote-char)
-    #db = pd.read_csv('HRDat-2014-12.TXT', sep=",", quotechar='"', names=colnames, encoding='cp850')
+## Original export-file from DRS2006, fixed one row where album contained " (doublequote-char)
+#db = pd.read_csv('HRDat-2014-12.TXT', sep=",", quotechar='"', names=colnames, encoding='cp850')
 
-    ## Original, untouched export-file from DRS2006
-    #db = pd.read_csv('HRDat.Orig.TXT', sep=",", quotechar='"', names=colnames, encoding='cp850')
+## Original, untouched export-file from DRS2006
+#db = pd.read_csv('HRDat.Orig.TXT', sep=",", quotechar='"', names=colnames, encoding='cp850')
 

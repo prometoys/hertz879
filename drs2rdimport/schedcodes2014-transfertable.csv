@@ -9,7 +9,7 @@ Elektro OK;gELektro, xTag
 Funk/ Soul;gsoulJaZz
 Hertzstück;rHst
 Hip Hop;gHipHop
-Instrumental;sInstrumental, user_defined: bettentauglich
+Instrumental;sInstrumnt, user_defined|bettentauglich
 Jazz;gsoulJaZz
 Metal;gRocK, sHeavy, xNacht
 Nacht Hart;xNacht, sHeavy, filepath|Nacht Hart:gRocK
@@ -20,7 +20,7 @@ Pop;gPoP
 Punk;gRocK
 Reggae;gREggae
 Rock;gRocK
-Ska;gReggae
+Ska;gREggae
 Tauschordner;filepath
 Rotation1;rEins
 Rotation2;rZwei
