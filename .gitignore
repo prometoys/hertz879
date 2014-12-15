@@ -7,4 +7,23 @@ current.*
 logs/
 *.pid
 *.log
+.ipynb_checkpoints/
+*.ipynb
+DatenPerfekt*.csv
+HRDat*
+comma-artists.txt
+drs-csv-experiments.py
+drs-filepath.txt
+drs-groups.txt
+drs-groups2014.txt
+lange-fade-outs.xls
+ls-jingles.txt
+ls-musik.txt
+ls-wort.txt
+mehr-kommas.txt
+noch-mehr-kommas.txt
+schedcodes-list.txt
+schedcodes.csv
+schedcodes2014-cleaned.csv
+schedcodes2014.csv
 

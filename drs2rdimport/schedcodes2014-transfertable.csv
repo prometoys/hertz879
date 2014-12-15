@@ -1,0 +1,46 @@
+# DRS;Rivendell
+# filepath: Ordner bestimmt Schedcodes
+
+Alternative;gALterna,xTag
+Darkwave;gELektro, xNacht, sHeavy
+Easy Listen;gPoP, xNacht, sSoft
+Elektro;gELektro, xNacht
+Elektro OK;gELektro, xTag
+Funk/ Soul;gsoulJaZz
+Hertzstück;rHst
+Hip Hop;gHipHop
+Instrumental;sInstrumental, user_defined: bettentauglich
+Jazz;gsoulJaZz
+Metal;gRocK, sHeavy, xNacht
+Nacht Hart;xNacht, sHeavy, filepath|Nacht Hart:gRocK
+Nacht Weich;xNacht, sHeavy, filepath|Nacht Weich:gPoP
+N-Top10Hart; rNacht, xNacht
+N-Top10Weich; rNacht, xNacht 
+Pop;gPoP
+Punk;gRocK
+Reggae;gREggae
+Rock;gRocK
+Ska;gReggae
+Tauschordner;filepath
+Rotation1;rEins
+Rotation2;rZwei
+#TODO: Zielgruppen
+
+#Nacht-Weich:
+#Alternative ruhig
+#e-Breakbeats
+#e-Elektro
+#e-Elektro-OK
+#e-House
+#Funk
+#Jazz&Blues
+#Popmoderne
+
+#Nacht-Hart:
+#Darkwave massenkompatibel
+#e-Dance_popular
+#Hardcore
+#Industrial
+#Metal
+#Zielgruppe - LEtat et moi
+
