@@ -265,10 +265,11 @@ def main(argv):
     
     if "--random" in argv:
         numbers=int(argv[2])
-        #drs_db = drs_db[drs_db['title'].str.contains('Honig')].head(5)
+        #drs_db = drs_db[drs_db['title'].str.contains('Friday')]
         #drs_db = drs_db[drs_db['length_ms']>10000].head(5)
         #drs_db = drs_db[~drs_db['year'].str.contains('\d')].head(1)
         #drs_db = drs_db[drs_db['group'] == 'Nacht Hart']
+        #drs_db = drs_db.loc[19485:19494]
         
         #print(len(drs_db.index))
         #print(drs_db.head(3))
