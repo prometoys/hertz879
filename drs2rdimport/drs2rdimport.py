@@ -89,6 +89,7 @@ def build_sched_codes(group_str, filepath_str, sc_dict, usrdef_str):
     ud = "" + usrdef_str
     for sched_code in sc_dict[group_str]:
         if "filepath" in sched_code:
+            #TODO, if sc_dict.has(filepath_str_folder): sc_dict[sched_code]
             sched_str = ""
             if "Nacht-Hart" in filepath_str:
                 sched_str = "gRocK"
@@ -221,9 +222,9 @@ def run_rdimport(my_db, my_dict, import_dir, simulate):
                 rdimport_args.append("--set-string-album="+ group_str)
                 rdimport_args = rdimport_args + sched_code
                 rdimport_args = rdimport_args + talktime_arg
-                rdimport_args.append("--set-marker-fadeup=" + str(row['fade_in']))
-                rdimport_args.append("--set-marker-fadedown=" + str(row['cue_out_ms']))
-                rdimport_args.append("--segue-length="+str(row['fade_out']).strip())
+                rdimport_args.append("--set-marker-fadeup=" + str(int(row['fade_in'])))
+                rdimport_args.append("--set-marker-fadedown=" + str(int(row['cue_out_ms'])))
+                rdimport_args.append("--segue-length="+str(int(row['fade_out'])).strip())
                 if year_str:
                     rdimport_args.append(year_str) 
                 rdimport_args.append("--normalization-level=-13")
@@ -233,27 +234,32 @@ def run_rdimport(my_db, my_dict, import_dir, simulate):
                 rdimport_args.append(filepath_str)
                 
                 try:
+                    #pass
                     #print(filepath_str)
                     #.join((agent_contact, agent_telno)).encode('utf-8').strip()
-                    print(u" ".join(rdimport_args).encode('utf-8').strip()) #TODO: PROBLEM
+                    #print(u" ".join(rdimport_args).encode('utf-8').strip()) #TODO: PROBLEM
                     #print("[INFO]: "+ u" ".join((rdimport_args)).encode('utf-8').strip()+"\n")
+                    print(rdimport_args) # .encode('utf-8').strip())
                 except UnicodeEncodeError:
                     print("mieserkleinererror")
-                    for item in rdimport_args:
-                        print(item.encode('utf-8'))
-                    sys.exit(1)
+                    #for item in rdimport_args:
+                    #    print(item.encode('utf-8'))
+                    #sys.exit(1)
                     
                 sys.stdout.flush()
-
-                p = sp.Popen(rdimport_args, bufsize=1)
-                p.communicate()
+                try:
+                    p = sp.Popen(rdimport_args, bufsize=1)
+                    p.communicate()
+                except:
+                    print("supermieserkleinererror")
+                    sys.exit(1)
  
             except KeyError:
                 print("[ERROR]: Group not found: " + group_str)
-        
-            except Exception:
-                print(sys.exc_info())
-                sys.exit(1)
+            #comment out to see full python exception
+            #except Exception:
+            #    print(sys.exc_info())
+            #    sys.exit(1)
         # This else is, when the file isn't found
 	else:
             try:
@@ -264,9 +270,9 @@ def run_rdimport(my_db, my_dict, import_dir, simulate):
 
 def main(argv):
     
-    transfertabe_filename = "schedcodes2014-transfertable.csv"
-    drs_import_file = 'HRDat-2014-12.TXT'
-    audio_import_dir = "/home/admin/ralfdata/Musik/"
+    transfertabe_filename = "schedcodes2014-transfertable-final.csv"
+    drs_import_file = 'HRDat20141217.TXT'
+    audio_import_dir = "/srv/rivendell/incoming/tmp/Musik/"
     
     # create the "DRS Group to Rivendel Scheduler-Codes" conversion dict.
     transfer_dict = gen_transfertable(transfertabe_filename)
@@ -278,10 +284,13 @@ def main(argv):
     
     if "--random" in argv:
         numbers=int(argv[2])
+        
+        # test cases, reduce the set of the db 
+        
         #drs_db = drs_db[(drs_db['title'].str.contains('ö|ä|ü')) | (drs_db['group'].str.contains('ö|ä|ü'))]
         #drs_db = drs_db[drs_db['group'].str.contains('ö|ä|ü')]
         
-        drs_db = drs_db[drs_db['filepath'].str.contains('ö|ä|ü')].head(1)
+        #drs_db = drs_db[drs_db['filepath'].str.contains('ö|ä|ü')].head(1)
         
         #drs_db = drs_db[drs_db['length_ms']>10000].head(5)
         #drs_db = drs_db[~drs_db['year'].str.contains('\d')].head(1)
@@ -295,18 +304,18 @@ def main(argv):
         
         db_len = len(drs_db.index)
         
+        # we need the smallest value, either db_len or numbers
+        # so we can create a later a random list with max. length of numbers
         minimum = min(db_len,numbers)
+        
         random_list = random.sample(xrange(db_len), minimum)
         
         # Print the selected index-numbers 
         #print("Range:" +str(random_list))
         
         drs_db = drs_db.iloc[random_list]
-        
-        #print(drs_db.head())
-        
-        #drs_db = drs_db.head(numbers)
     
+    # END of if--random
     
     if "--run" in argv:
         run_rdimport(drs_db, transfer_dict, audio_import_dir, False)
@@ -317,18 +326,5 @@ def main(argv):
     
 if __name__ == "__main__":
     main(sys.argv)
-    
 
-#### Old Database import syntax
-## New database file converted by LibreOffice Calc
-#db = pd.read_csv('DatenPerfekt2014-12.csv', sep=";", dtype={'key':unicode}, names=colnames)
-
-## Original testfile. Convertet with Calc (mit skiprows, da hier noch ein Header eingetragen ist)
-#db = pd.read_csv('DatenPerfektPandaHeader.csv', sep=";", dtype={'key':unicode}, names=colnames, skiprows=1)
-
-## Original export-file from DRS2006, fixed one row where album contained " (doublequote-char)
-#db = pd.read_csv('HRDat-2014-12.TXT', sep=",", quotechar='"', names=colnames, encoding='cp850')
-
-## Original, untouched export-file from DRS2006
-#db = pd.read_csv('HRDat.Orig.TXT', sep=",", quotechar='"', names=colnames, encoding='cp850')
 
