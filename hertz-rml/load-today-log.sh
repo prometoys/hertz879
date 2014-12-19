@@ -34,7 +34,8 @@ if [ $# -eq 1 ]; then
     SQL='SELECT '$ROW' FROM '${NOW_DATE}'_LOG L WHERE START_TIME <= '${TIME_MS}' ORDER BY START_TIME DESC'
 
     # only take the first found line number.
-    ID=$(echo $SQL | mysql  --defaults-file=${MYSQL_CREDENTIALS} -h localhost Rivendell | grep  '^[0-9]\+$' | head -n 1)
+    echo $SQL
+    ID=$(echo $SQL | mysql  --defaults-file=${MYSQL_CREDENTIALS} Rivendell | grep  '^[0-9]\+$' | head -n 1)
 
     # Test expression for positive integer numbers
     REGEXP_NUMBER='^[0-9]+$'

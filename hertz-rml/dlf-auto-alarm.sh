@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Time to blink in seconds (if you don't change the sleep statements )
-LAST=20
+LAST=50
 
 # Color for the LC command
 # possible values: white black red darkRed green darkGreen blue darkBlue cyan
@@ -24,3 +24,4 @@ do
   sleep 0.7
   I=$(($I+1))
 done
+rmlsend "LB"! 

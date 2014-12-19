@@ -53,10 +53,10 @@ if [ $# -lt 2 ]; then
     if [ ""$1 == "--perform" ]; then
 
         # Print MySQL command
-        # echo "echo \"$SQL\" | mysql  --defaults-file=${MYSQL_CREDENTIALS} -h localhost Rivendell"
+        # echo "echo \"$SQL\" | mysql  --defaults-file=${MYSQL_CREDENTIALS} Rivendell"
 
         # Pipe SQL command to MySQL client and print output
-        echo $SQL | mysql  --defaults-file=${MYSQL_CREDENTIALS} -h localhost Rivendell
+        echo $SQL | mysql  --defaults-file=${MYSQL_CREDENTIALS} Rivendell
 
     else
 
