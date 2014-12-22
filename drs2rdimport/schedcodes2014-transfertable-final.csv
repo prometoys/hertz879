@@ -1,0 +1,68 @@
+# DRS;Rivendell
+# filepath: Ordner bestimmt Schedcodes
+
+Alternative;gAlterna, xTag
+Darkwave;gELektro, xNacht, sHeavy
+Easy Listen;gPoP, xNacht, sSoft
+Elektro;gELektro, xNacht
+Elektro OK;gELektro, xTag
+Funk/ Soul;gsoulJaZz, xTag
+#Hertzstück;rHst
+Hip Hop;gHipHop, xTag
+Instrumental;sInstrumnt, user_defined|bettentauglich
+Jazz;gsoulJaZz, xTag
+Metal;gRocK, sHeavy, xNacht
+Nacht Hart;xNacht, sHeavy, filepath|Nacht Hart:gRocK
+Nacht Weich;xNacht, sSoft, filepath|Nacht Weich:gPoP
+N-Top10Hart; rNacht, xNacht
+N-Top10Weich; rNacht, xNacht 
+Pop;gPoP, xTag
+Punk;gRocK, xTag
+Reggae;gREggae, xTag
+Rock;gRocK, xTag
+Ska;gREggae, xTag
+Tauschordner;filepath
+Rotation1;rEins
+Rotation2;rZwei
+#TODO: Zielgruppen;
+
+#Nacht-Weich:;gPoP, sSoft, xNacht
+#Alternative ruhig;gPoP, xTag
+#e-Breakbeats;gELektro, xNacht
+#e-Elektro;gELektro, xNacht
+#e-Elektro-OK;gELektro, xTag
+#e-House;gELektro, xNacht
+#Funk;gsoulJaZz, xTag
+#Jazz&Blues;gsoulJaZz, xNacht, sSoft
+#Popmoderne;gPoP, gELektro, xNacht
+
+#Nacht-Hart:;gRocK, xNacht, sHeavy
+#Darkwave massenkompatibel;gELektro, xNacht, sHeavy
+#e-Dance_popular;gELektro, xNacht
+#Hardcore;gRocK, xNacht
+#Industrial;gELektro, xNacht, sHeavy
+#Metal;gRocK, xNacht, sHeavy
+#Zielgruppe - LEtat et moi;gRocK, xTag
+
+Z-Eclipse;gELektro, xzEclipse
+Z:Elektronik;gELektro, xNacht
+#Z:Fish&Chips
+#Z-French Cui;
+Z:Gebongt;gHipHop, xzBreaks
+Z-Hard Attac;gRocK, sHeavy, xzMetal
+#Z-Jazz;gsoulJaZz, xzJazz
+Z - L'Etat;gRocK, xTag
+Z-Löwenhertz;gREggae, xzReggae
+#Z-MakeElectr;gELektro, 
+#Z-Mein Haus;gELektro
+#z - pause;
+#z - Pause;
+#Z-Perlen;
+Z-Popmoderne;gPoP, gELektro, xNacht
+#Z-Robotrock;
+z -SoKo 87,9;gRocK, xzPunk
+#Z - Traumfab;
+Z-Undergroun;gPoP, xzLondon
+#Z - Unpop
+#Z - Vibes;
+Z-Z-Jazz;gsoulJaZz, sSoft, xzJazz;
