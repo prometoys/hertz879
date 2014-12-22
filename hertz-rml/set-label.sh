@@ -10,17 +10,18 @@ MYSQL_CREDENTIALS="/srv/rivendell/my.cnf";
 #function debug {
 # print a log a message
 log () {
-    DATE=$(date +"%Y-%m-%d %H:%M:%S %z")
-    echo "$DATE: $@" >&2 >>  $LOGFILE
+	DATE=$(date +"%Y-%m-%d %H:%M:%S %z")
+	echo "$DATE: $@" >&2 >>  $LOGFILE
 }
 
 log "running set-label"
 
+# 
 touch $LASTSONG
 chmod g+w  $LASTSONG
 touch $LOGFILE
 chgrp rivendell  $LOGFILE
-chmod g+w  $LOGFILE
+chmod g+w  $LOGFILE 
 
 # Check if there is a argument
 if [ $# -gt 0 ]; then
@@ -29,16 +30,16 @@ if [ $# -gt 0 ]; then
     # Format is artist-title, if artist and title are empty
     # the string contains only "-"
     # if ! [[ $@ = "-" ]] ;then
-    # Put th full string [artist-title] in the variable
-        NUMBER=$@
+	# Put th full string [artist-title] in the variable
+	NUMBER=$@
         
         TABLE="CART"
         ROW="ARTIST,TITLE"
         
         SQL='SELECT '$ROW' FROM '${TABLE}' WHERE  NUMBER='${NUMBER}''
         
-        #echo "SELECT ARTIST,TITLE FROM CART WHERE NUMBER=300048" | mysql  --defaults-file=${MYSQL_CREDENTIALS} Rivendell | tail -n1 |  sed -e 's/^ *//' -e 's/ *$//' | sed -e 's/\t/ - /'
-        echo $SQL
+#        echo "SELECT ARTIST,TITLE FROM CART WHERE NUMBER=300048" | mysql  --defaults-file=${MYSQL_CREDENTIALS} Rivendell | tail -n1 |  sed -e 's/^ *//' -e 's/ *$//' | sed -e 's/\t/ - /'
+	echo $SQL
         SONG=$(echo $SQL | mysql  --defaults-file=${MYSQL_CREDENTIALS} Rivendell |  tail -n1 |  sed -e 's/^ *//' -e 's/ *$//' | sed -e 's/\t/ - /')
         log 'newsong: rmlsend "LB '$SONG' "!'
         # Send the 
@@ -50,8 +51,8 @@ if [ $# -gt 0 ]; then
             log 'daswar:  rmlsend "LB '$SONG' "!'
             rmlsend "LB $SONG "!
         else
-            log "failed-daswarcheck: $SONG"
-        fi
+	    log "failed-daswarcheck: $SONG"
+	fi
     fi
 #else
 #    # Error output, if more then one argument is given at start time
