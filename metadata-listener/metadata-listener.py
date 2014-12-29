@@ -64,7 +64,7 @@ UDP_PORT = 5000
 # nachsehen in rdadmin -> Manage Groups
 # Groß- und Kleinschreibung beachten.
 
-WANTED_GROUPS = ["MUSIC", "MusikArchiv", "WORT", "TRAFFIC", "SHOWS", "IDENTS", "TEASER"]
+WANTED_GROUPS = ["MUSIK", "MUSIK_ALT", "WORT", "WORT_ALT", "TRAILER", "STATION_ID", "AUTO_TT", "AUTO", "TEASER"]
 
 # TODO: Pfade via Variable
 #HIRSE_HOME="/home/ices/"
@@ -87,7 +87,7 @@ def write_file(string, dir, filename):
         if not os.path.isdir(dir):
             os.makedirs(dir)
         outputfile = open(filename, 'w')
-        outdata = string
+        outdata = string.encode("utf8")
         outputfile.write(outdata)
         outputfile.close()
     except IOError:
@@ -95,10 +95,11 @@ def write_file(string, dir, filename):
         error_print("Error: " + e.strerror + " [" + repr(e.errno) + "]")
         # TODO: Dateirechte etc behandeln
         clean_exit(1)
-    except Exception:
-        e = sys.exc_info()[1]
-        error_print("Error: " + repr(e))
-        clean_exit(1)
+    #Macht diese Exception Sinn? Sie erschwert das Debugging ungemein.
+    #except Exception:
+    #    e = sys.exc_info()[1]
+    #    error_print("Error: " + repr(e))
+    #    clean_exit(1)
 
 # TODO: Fehlermeldungen/Debug optional in Logdatei
 # http://stackoverflow.com/questions/6579496/using-print-statements-only-to-debug
@@ -321,13 +322,13 @@ while True:
         
         # We expect ISO-8859-15 from Rivendell, we ignore everything outside
         data = incoming.decode('iso-8859-15','ignore')
-        debug('Received message from '+ repr(addr) + ': ' + data )
+        debug(u'Received message from '+ repr(addr) + u': ' + repr(data) )
         
         # Empfangene Zeichenkette aufteilen.
         try:
-            group, artist, song, ms = data.rstrip('\n').split(SPLIT_CHAR)
+            group, artist, song, ms, nonsense = data.rstrip('\n').split(SPLIT_CHAR)
         except ValueError:
-            error_print("Ignoring packet with wrong value format: " + data)
+            error_print(u"Ignoring packet with wrong value format: " + repr(data))
         
         # Zeichenketten von Leerzeichen etc. säubern.
         artist = artist.strip()
