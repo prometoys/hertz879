@@ -1,7 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf8 -*-
-from __future__ import print_function
-from __future__ import unicode_literals
 import socket
 import re
 import sys, errno, os
@@ -43,8 +41,8 @@ from optparse import OptionParser
 #
 # Vorgabe: IP des Netzwerk-Devices, was die Verbindung zwischen Studio- und 
 # Streamrechner erstellt. 
-
-# UDP_IP = "129.70.176.39"
+#
+# UDP_IP = "10.11.12.13"
 
 UDP_IP = "0.0.0.0"
 
@@ -87,7 +85,8 @@ def write_file(string, dir, filename):
         if not os.path.isdir(dir):
             os.makedirs(dir)
         outputfile = open(filename, 'w')
-        outdata = string.encode("utf8")
+        outdata = string
+        #outdata = string.encode("utf8")
         outputfile.write(outdata)
         outputfile.close()
     except IOError:
@@ -215,7 +214,6 @@ def create_xspf_track(artist, song, group, ms, utc_date):
     date = utc_date.astimezone(PYTZ_OUTPUT_TIMEZONE)
     date_str = get_clean_xmltime(date.isoformat())
     
-    # TODO: remove unicode testing
     try:
         xmltitle = "\t<title>"+escape(song)+"</title>\n"
         xmlcreator = "\t<creator>"+escape(artist)+"</creator>\n"
@@ -269,9 +267,6 @@ UDP_STRING= UDP_IP+':'+repr(UDP_PORT)
 # Hier lauscht das Skript konkret auf der angegebenen IP/PORT
 # TODO: IPv6 ?? -> Kann Rivendell nicht.
 
-#TODO: remove after testing
-#sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
-#sock.bind((UDP_IP, UDP_PORT))
 try:
     sock = socket.socket(socket.AF_INET, # Internet
                          socket.SOCK_DGRAM) # UDP
@@ -322,13 +317,13 @@ while True:
         
         # We expect ISO-8859-15 from Rivendell, we ignore everything outside
         data = incoming.decode('iso-8859-15','ignore')
-        debug(u'Received message from '+ repr(addr) + u': ' + repr(data) )
+        debug('Received message from '+ repr(addr) + ': ' + repr(data) )
         
         # Empfangene Zeichenkette aufteilen.
         try:
             group, artist, song, ms, nonsense = data.rstrip('\n').split(SPLIT_CHAR)
         except ValueError:
-            error_print(u"Ignoring packet with wrong value format: " + repr(data))
+            error_print("Ignoring packet with wrong value format: " + repr(data))
         
         # Zeichenketten von Leerzeichen etc. säubern.
         artist = artist.strip()
