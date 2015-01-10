@@ -39,7 +39,7 @@ if [ $# -lt 2 ]; then
         
         MAX_TIME=$((${RAMP_TIME}*1000))
     
-        FILTER_SQL="WHERE TALK_END_POINT <= ${MAX_TIME} AND TALK_END_POINT >= ${MIN_TIME} AND  ${TAG_FIELD} NOT LIKE '%${TAG_NAME}%'"
+        FILTER_SQL="WHERE TALK_END_POINT <= ${MAX_TIME} AND TALK_END_POINT > ${MIN_TIME} AND  ${TAG_FIELD} NOT LIKE '%${TAG_NAME}%'"
 
         # Select Query for testing 
         QUERY_SQL="SELECT ${ROW} FROM ${TABLE} ${FILTER_SQL}  ${DEFAULT_FILTER_SQL};"
