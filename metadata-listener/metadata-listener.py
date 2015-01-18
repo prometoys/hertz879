@@ -62,7 +62,7 @@ UDP_PORT = 5000
 # nachsehen in rdadmin -> Manage Groups
 # Groß- und Kleinschreibung beachten.
 
-WANTED_GROUPS = ["MUSIK", "MUSIK_ALT", "WORT", "WORT_ALT", "TRAILER", "STATION_ID", "AUTO_TT", "AUTO", "TEASER"]
+WANTED_GROUPS = ["JINGLES", "MUSIK", "MUSIK_ALT", "WORT", "WORT_ALT", "TRAILER", "STATION_ID", "AUTO_TT", "AUTO", "TEASER", "ZEIT"]
 
 # TODO: Pfade via Variable
 #HIRSE_HOME="/home/ices/"
@@ -109,6 +109,7 @@ def write_file(string, dir, filename):
 def error_print(*strings):
     # print (strings, file=sys.stderr) # logging in der shell fixen, dann auskommentieren
     print(*strings)
+    sys.stdout.flush()
 
 def debug(*strings):
     if option.verbose:
@@ -214,6 +215,7 @@ def create_xspf_track(artist, song, group, ms, utc_date):
     date = utc_date.astimezone(PYTZ_OUTPUT_TIMEZONE)
     date_str = get_clean_xmltime(date.isoformat())
     
+
     try:
         xmltitle = "\t<title>"+escape(song)+"</title>\n"
         xmlcreator = "\t<creator>"+escape(artist)+"</creator>\n"
