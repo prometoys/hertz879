@@ -13,7 +13,7 @@ SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))+"/"
 FILE='playlist.txt'
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5000
-MESSAGE = "GROUP|ARTIST|TITLE|123456 \n"
+MESSAGE = "GROUP|ARTIST|TITLE|123456| \n"
 
 parser = OptionParser(version="%prog 0.10", 
                       usage="usage: %prog [options]")

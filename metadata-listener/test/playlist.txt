@@ -1,302 +1,307 @@
-MUSIC|Avery, Theodross|It#s about that time|309612 
-IDENTS||Ratatat ID|9312 
-MUSIC|Orka|Kapersber|261072
-IDENTS|Student|Student Station ID|4226 
-MUSIC|Jamiroquai|Feels like it should|214044
-IDENTS|Brother Resistance|Brother Resistance Station ID|6314
-MUSIC|Forward Russia|Six|178272
-IDENTS|Hertz 87.9|lemoine|8052
-MUSIC|Devil in Miss Jones|I-Dentity|221736
-IDENTS|Calexico|Calexico Station ID|11570
-MUSIC|Marr|jd mac kaye|281424
-IDENTS|Steffi Mahsmann|testament-id|6684
-MUSIC|EVC|Back To Me 2|233568
-|||
-IDENTS||StationID-Weakerthans|5700
-MUSIC|Jeans Team|Wunderbar|236736
-MUSIC|Visage|Shameless Fashion|258636
-MUSIC|Rhodes, Lou|The Rain|199584
-IDENTS|Veljanov|Veljanov ID|10044
-MUSIC|Arab Strap|Direction of strong man|256908
-MUSIC|Cornershop|The Constant Springs|246216
-JINGLES|Nachrichten|Jingle Infakt Anfang|8402
-|||
-|||
-IDENTS|Jenny|ID Helmuth Skowronek|8772
-MUSIC|Catatonia|Road Rage|23713
-||| 
-IDENTS||Uwe Seeler|13164 
-MUSIC|Shreefpunk|Aua|295272
-MUSIC|Julian Cope|Paradise Mislaid|282108
-|||
-IDENTS|Adrian von DoD|DoD Ecli ID|3468
-IDENTS|Artist|Martin Sonneborn|23964
-IDENTS|Belle & Sebastian|Belle & Sebastian Station ID|3468
-IDENTS|Bobby Long|Bobby Long StationID|3660
-IDENTS|Boss Martians|Boss Martians Station ID|3218
-IDENTS|Boxhamsters|Boxhamsters StationID|8100
-IDENTS|Cradle of Filth|Cradle of Filth Station ID|3914
-IDENTS|Dance or Die|Dance or Die Station ID|5112
-IDENTS|Daniel Zillmann|Daniel Zillmann Station ID|3554
-IDENTS|Der Papst|id-pabst|18024
-IDENTS|Die Ärzte|Aerzte Station ID|34898
-IDENTS|Drei Fragezeichen|Drei Fragezeichen Station ID|6074
-IDENTS|Electric Club, The|The Electric Club Station ID|5244
-IDENTS|Farin Urlaub|Farin Urlaub Station ID|7284
-IDENTS|Heinz Hoenig|Heinz Hoenig Station ID|16538
-IDENTS|Hennes Bender 2|Benderid Station ID|9324
-IDENTS|Hennes Bender|Hennes Bender Station ID|13586
-IDENTS||id-The_Black_Seeds-Daniel_Weetman|5388
-IDENTS|jörg|J15|22476
-IDENTS|Lee Buddah|Buddah Station ID|4620
-IDENTS|Megadeth|id-Megaid|9252
-IDENTS||New Pronographers-Station_ID|5988
-IDENTS||Piroth ID|8868
-IDENTS||Robert Fisher-ID|7500
-IDENTS|Rocko Schamoni|Rocko Schamoni-Station ID|9180
-IDENTS|Rowohlt, Harry|Rowohlt|3876
-IDENTS|Savatage|id-Savaid|8916
-IDENTS||Sepul-id|14556
-IDENTS|Slipknot|id-Slipknot|6564
-IDENTS|Sparks|Sparks|7188
-IDENTS|Spax|id-Spaxid|33372
-IDENTS||Sportfreunde Stiller_ID1|6804
-IDENTS||Staion ID - Hugo Race|9996
-IDENTS|Steffi Mahsmann|Id-ded|6468
-IDENTS|Steffi Mahsmann|Id-portn|4140
-IDENTS|Steffi Mahsmann|testament-id|6684
-IDENTS|student|id-Ukoerber|4572
-IDENTS|student|Iwavd7|2868
-IDENTS|Student|Student Station ID|4346
-IDENTS|ThePicturebooks|PictureBooks_Station ID|12084
-IDENTS|Thoams Gsella|Thomas Gsella Station ID|5906
-IDENTS|Tim|IDTim|8700
-IDENTS||Tim Neuhaus|4620
-IDENTS||Tom Lueneburger Station ID|3396
-IDENTS|Utah Saints|Utah Saints ID|7356
-IDENTS||Washington-ID|5316
-JINGLES|DLF|Jingle Deutschlandfunk Anfang|9914
-MUSIC|200|Bruka Tina Makt|244092
-MUSIC|Aberfeldy|Love Is An Arrow|145548
-MUSIC|Adamson , Barry|Jazz Devil|302028
-MUSIC|Alex Cortiz|Smooth|264600
-MUSIC|Antiseen|Ugly american|114396
-MUSIC|Antony & The Johnsons|Sing For Me|143676
-MUSIC|Antsy Pants|Amazing Kids Doing Amazing Shi|140004
-MUSIC|Apocalyptica|I`m not Jesus|211812
-MUSIC|Arctic Monkeys|When The Sun Goes Down|195312
-MUSIC|A Tribe Called Quest|Oh My God|199812
-MUSIC|autoKratz|Always More|250596
-MUSIC|B2KDA|Un Poquito|277164
-MUSIC|Baby Universal|We The Strangers|210420
-MUSIC|Baddies|Holler For My Holiday|147180
-MUSIC|Balthazar|I'll Stay Here|176976
-MUSIC|Banner Pilot|Alchemy|133932
-MUSIC|Baths|Ossuary|227448
-MUSIC|Beware of Darkness|Sweet Girl|153420
-MUSIC|Biafra, Jello with Nomeansno|Bruce`s Diary|316824
-MUSIC|Biafra, Jello with Nomeansno|Jesus was a terrrorist|153264
-MUSIC|Big Deal|Swapping Spit|195528
-MUSIC|Black Rust|Everything#s Fading|200916
-MUSIC|Bloody Beetroots|Out of Sight|203076
-MUSIC|Bluekilla|Girl U Want|176928
-MUSIC|Blur|To The End|298788
-MUSIC|Bonaparte| Out of Control|231996
-MUSIC|Boogaerts, Mathieu|Jambe|142656
-MUSIC|Bright November|Strain Return|246180
-MUSIC|Buttering Trio| Tired Love|194268
-MUSIC|Calexico|Cruel|235308
-MUSIC|Carla Bruni|La dernière minute|50508
-MUSIC|Catfish And The Bottleman| Kathleen|160596
-MUSIC|Caviare Days|When The Light Is Breaking|185388
-MUSIC|Cayucas|A Summer Thing|230328
-MUSIC|Charity Children|Little Sparrow (für die Kind..|239556
-MUSIC|Charles Bradley|You Put The Flame On It|224292
-MUSIC|Chilites|What Do I Whish For|174348
-MUSIC|Congo Natty|Jah Warriors|217404
-MUSIC|Conn, Bobby|Whores|278712
-MUSIC|Costello, Elvis|Go Away|288204
-MUSIC|Cracker|Ain#t gonna suck itself|235620
-MUSIC|Crustation|Ride on|265020
-MUSIC|Das Niveau|Niveaulimbo|238872
-MUSIC|Datarock|The Most Beautiful Girl|231408
-MUSIC|Dead Kennedys|Viva las Vegas|152340
-MUSIC|Defari|Focused Daily|268620
-MUSIC|Delphic|Baiya|225552
-MUSIC|Del the funky homosapien|Jaw gymnastics|223116
-MUSIC|dEUS|The Architect|219756
-MUSIC|Die Happy|Wanna be your girl|178692
-MUSIC|D.I.T.C.|Weekend Nights|187980
-MUSIC|Divine Fits|Chained To Love|182018
-MUSIC|DJ Vadim|That Lite|289140
-MUSIC|Dr. Dooom|Body Bag|211884
-MUSIC|Dynamite Deluxe|Meilenstein|194148
-MUSIC|Earthworks|Curioser and curioser|227268
-MUSIC|EGG BITES CHICKEN|Cry|242592
-MUSIC|Elephants On Tape|Planet|219696
-MUSIC|Eternal Tango|the golden city|198924
-MUSIC|Face To Face|It's Not All About You|179268
-MUSIC|Faith no more|Midlife crisis|252132
-MUSIC|Farao|Skin|207072
-MUSIC|Fat Freddy's Drop|Clean The House|197376
-MUSIC|Feeder|Pain on pain|240276
-MUSIC|Feelin' Funky|Hang Up|126672
-MUSIC|Figurines|Bright|153036
-MUSIC|Fink| Looking Too Closely|196908
-MUSIC|First Aid Kit| Master Pretender|221580
-MUSIC|Francis,Sage|Gunz Yo|182940
-MUSIC|Frank Turner|The Way I Tend To Be|218508
-MUSIC|Franz Ferdinand|Love Illumination (Radio Mix)|222216
-MUSIC|Freddie Foxxx&Bumpy Knuckles|Swazzee|255180
-MUSIC|Fury in the slaughterhouse|You ll never be alone|282804
-MUSIC|Gaye, Marvin|Got To Give It Up|243684
-MUSIC|Get Dead|Riverbank|227676
-MUSIC|Glass Animals| Pools|207624
-MUSIC|Gossip|Heavy Cross|241980
-MUSIC|Grease|Summer Loving|212652
-MUSIC|Green, Adam|Hard To Be A Girl|97644
-MUSIC|Guns N' Roses|Madagascar|335796
-MUSIC|Haight Ashbury|Freeman Town (Radio Edit)|228492
-MUSIC|Helldorado|Diesel and Bones|228048
-MUSIC|Hercules and Love Affair| THAT'S NOT ME|247908
-MUSIC|Hertz 87.9|Hertzstück + Klassiker|267372
-MUSIC|Hertz 87.9|Hertzstück + Klassiker|275640
-MUSIC|Hertz 87.9|Hertzstück + Klassiker|287628
-MUSIC|Hertz 87.9|Hertzstück + Klassiker|296664
-MUSIC|Hertz 87.9|Hertzstück + Klassiker|297924
-MUSIC|Hertz 87.9|Hertzstück + Klassiker|338652
-MUSIC|Hubbard, Freddie|Birdlike|615492
-MUSIC|Idle Class|Chances are for Poets|160752
-MUSIC|Indelicates, THe|America|252624
-MUSIC|Inspiral Carpets|Generations|165864
-MUSIC|In The Valley Below|Peaches|283752
-MUSIC|Iron & Wine|Southern Anthem|230628
-MUSIC|Jagwar Ma|Man I Need|220644
-MUSIC|Jamiroquai|Dynamite|292188
-MUSIC|Jan Blomqvist| Time Again|286452
-MUSIC|Japandroids|The House That Heaven Built|285696
-MUSIC|Jay-Z feat. Frank Ocean|Oceans|235968
-MUSIC|Jesper Munk|Hungry For Love|143748
-MUSIC|John Clarke|Tell it to them roots dread|210924
-MUSIC|Jo Stance|Tell Me Girls|264804
-MUSIC|Julian Cope|Paradise Mislaid|282108
-MUSIC|kaizers orchestra|di grind|243348
-MUSIC|Kakkmaddafakka|Young|195768
-MUSIC|Kapelle Petra|Geht mehr auf Konzerte|165780
-MUSIC|Kasabian|Underdog|275928
-MUSIC|Kaurna Cronin| Run Boy|185436
-MUSIC|Kill It Kid| I'll Be The First|196716
-MUSIC|Kool Keith|27 Shots|198204
-MUSIC|Kweller, Ben|Sundress|241920
-MUSIC|La Roux| Uptight Downtown|200004
-MUSIC|Le Zero|Metronome Solitude|233976
-MUSIC|Lissi Dancefloor Disaster|Oh My God|154452
-MUSIC|Local Shop| Local Girls|256284
-MUSIC|Lukas Little Sister|Coast Blues|194196
-MUSIC|L.U.S.T.|First Tattoo|149028
-MUSIC|Mac Miller|Aquarium|255338
-MUSIC|Major Lance|Um, Um, Um, Um, Um, Um|135300
-MUSIC|Mansun|Comes as no surprise|240492
-MUSIC|Mansun|Wide open space|271008
-MUSIC|Maps|I Heard Them Say|260688
-MUSIC|Melotron|Lebe ungewöhnlich|277092
-MUSIC|Mesh|Four Walls|248808
-MUSIC|Metronomy|Everything Goes My Way|193908
-MUSIC|Mikrofisch|I Like You|268596
-MUSIC|Minor Majority|Dancing in the backyard|223368
-MUSIC|Monocular|Guidance|196476
-MUSIC|Mop Mop|Loa Chant feat. Sara Sayed|222888
-MUSIC|Morgenstern, Christian|Rocket Science|227292
-MUSIC|Motorama|White Light|201036
-MUSIC|My Son The Bum|Caffeine Blues|211920
-MUSIC|My vitriol|Pieces|210720
-MUSIC|N.A.S.A.|Whachadoin?|249204
-MUSIC|Nouvelle Vague|Friday Night Saturday Morning|256668
-MUSIC|Nouvelle Vague|The Guns Of Brixton|243156
-MUSIC|Patty Moon|Painting Horses|218112
-MUSIC|Paul St. Hilaire|Don#t test|210372
-MUSIC|Pavement|At & t|208632
-MUSIC|Pete Rock|Half Man Half Amazin|251700
-MUSIC|Pixies|Bagboy|288444
-MUSIC|PJ Higgins| King Of Illusion|260532
-MUSIC|Pretty Girls Make Graves|Pyrite Pedestral|200916
-MUSIC|Price Billy, Bonnie|I Am Goodbye|128892
-MUSIC|Primal Scream|It's Alright, It's okay|220428
-MUSIC|punk soul loving...|auf die strassen|186888
-MUSIC|Queen of the Stone Age|I Sat By The Ocean|235344
-MUSIC|Racoon|2014|199524
-MUSIC|Raw Fyah|Livity|303156
-MUSIC|Razorlight|Hostage Of Love|217992
-MUSIC|Razzia|Rotes Plastik|190536
-MUSIC|Reuben Bell|Super Jock|171936
-MUSIC|Ricky-Tick Big Band|Easily Flammable|263112
-MUSIC|Rise against|Broken English|204924
-MUSIC|Royal Blood| Come On Over|171180
-MUSIC|Sabina| Viva L'Amour|177612
-MUSIC|Saian Supa Crew|Ils etaient une fois|292152
-MUSIC|Salzer|Resig Nation|162444
-MUSIC|Sentilo Sono|Condor|187404
-MUSIC|Shout Out Louds|Atrackandatrain|282276
-MUSIC|Siggi Armann|Elephant Man|265080
-MUSIC|Silke Bischoff|Love never Dies|276612
-MUSIC|Skeewiff|Triumph Stag|237492
-MUSIC|Snow Tha Product|On Now|190692
-MUSIC|Stella|Finger on the trigger for the|202776
-MUSIC|Stornoway|I Saw You Blink|226500
-MUSIC|Stray Colors|Pada Kisa|195600
-MUSIC|Subway to Sally|Auf Kiel|240492
-MUSIC|Super 700|Tango - Original|234336
-MUSIC|Svegler, Siri|Their Wine|198132
-MUSIC|Swell|Next To Nothing|306612
-MUSIC|Sylvan Esso|Play It Right|181538
-MUSIC|Tech N9ne|Fragile ft. Kendrick Lamar, MA|237132
-MUSIC|Teenage Fanclub|Only with you|255540
-MUSIC|the Big Pink|Hit The Ground (Superman)|291240
-MUSIC|The Black Keys|Strange Times|188328
-MUSIC|The Blood Arm|The Chasers|164016
-MUSIC|The Bloody Beetroots|Awesome|151524
-MUSIC|The Bottrops|DIE MASCHINE|154644
-MUSIC|The Child Of Lov|Give It To The People|160704
-MUSIC|the Cinematics|Guernica|215316
-MUSIC|The Crookes|Bear's Blood|166668
-MUSIC|The Exploited|If you're sad|318732
-MUSIC|The Fiery Furnaces|Single Again|236004
-MUSIC|The Flames|Lunatic Dreams|193212
-MUSIC|The Hot Puppies|the hot puppies / terry|241260
-MUSIC|The John Butler Trio| Livin in the City|205260
-MUSIC|The Lucksmiths|The Music Next Door|268632
-MUSIC|the Mojomatics|Feet In The Hole|176832
-MUSIC|The New Mastersounds|Idle Time (Lack Of Afro Remix)|307404
-MUSIC|The Pipettes|ABC|124536
-MUSIC|The Pleasants|Streets Of Darkness|267108
-MUSIC|The Selecter|Celebrate The Bullet|255300
-MUSIC|The Shh|So Over|203628
-MUSIC|The Spookshow|The kneeling drunkards Plea|137436
-MUSIC|The Staggers|Come On!|177120
-MUSIC|the Veils|Through the Deep Dark Wood|184188
-MUSIC|The View|The Don|186924
-MUSIC|They Might Be Giants|Au Contraire|144684
-MUSIC|This Is The Arrival|Metropolis|241824
-MUSIC|Torpedo Jackson|Hype Star|150132
-MUSIC|Totally Radd!!|Video Store|131232
-MUSIC|Towers Of London|Air Guitar|154920
-MUSIC|Treetop Flyers|She's Gotta Run|174036
-MUSIC|Turbo A.C.s|HKWC|222156
-MUSIC|Turbostaat|Fünfwürstchengriff|142668
-MUSIC|Uncle Frank|Step Into My Room|215858
-MUSIC|United Balls|Pogo in Togo|192240
-MUSIC|UNKLE|Unreal|305580
-MUSIC|van Dannen, Funny|Freunde der Realität|184860
-MUSIC|Vangaalen,Chad|Clinically Dead|133260
-MUSIC|Vortex Rex|Freeway Girl|145476
-MUSIC|We Have Band|Oh! (Radio Edit)|183612
-MUSIC|When Saints Go Machine|Mannequin|226368
-MUSIC|White Rabbits|While We Go Dancing|254508
-MUSIC|Yeah Yeah Yeahs|Down Boy|232068
-MUSIC|Zeebee|Jealous (radio edit)|220512
-MUSIC|Z-Trip|Breakfast Club|293052
-TRAFFIC|Hertz 87.9|Mensaplan Cart|70512
-TRAFFIC|Hertz 87.9|Trailer Cart|46260
-TRAFFIC|Hertz 87.9|Trailer Cart|79080
-TRAFFIC|Hertz 87.9|Trailer Cart|79572
-TRAFFIC|Hertz 87.9|V-Tipps Cart|118836
+MUSIK|Avery, Theodross|It#s about that time|309612 |
+STATION_ID||Ratatat ID|9312 |
+MUSIK|Orka|Kapersber|261072|
+STATION_ID|Student|Student Station ID|4226 |
+MUSIK|Jamiroquai|Feels like it should|214044|
+STATION_ID|Brother Resistance|Brother Resistance Station ID|6314|
+MUSIK|Forward Russia|Six|178272|
+STATION_ID|Hertz 87.9|lemoine|8052|
+MUSIK|Devil in Miss Jones|I-Dentity|221736|
+STATION_ID|Calexico|Calexico Station ID|11570|
+MUSIK|Marr|jd mac kaye|281424|
+STATION_ID|Steffi Mahsmann|testament-id|6684|
+MUSIK|EVC|Back To Me 2|233568|
+||||
+STATION_ID||StationID-Weakerthans|5700|
+MUSIK|Jeans Team|Wunderbar|236736|
+MUSIK|Visage|Shameless Fashion|258636|
+MUSIK|Rhodes, Lou|The Rain|199584|
+STATION_ID|Veljanov|Veljanov ID|10044|
+MUSIK|Arab Strap|Direction of strong man|256908|
+MUSIK|Cornershop|The Constant Springs|246216|
+JINGLES|Nachrichten|Jingle Infakt Anfang|8402|
+||||
+||||
+STATION_ID|Jenny|ID Helmuth Skowronek|8772|
+MUSIK|Catatonia|Road Rage|23713|
+||| |
+STATION_ID||Uwe Seeler|13164 |
+MUSIK|Shreefpunk|Aua|295272|
+MUSIK|Julian Cope|Paradise Mislaid|282108|
+||||
+STATION_ID|Adrian von DoD|DoD Ecli ID|3468|
+STATION_ID|Artist|Martin Sonneborn|23964|
+STATION_ID|Belle & Sebastian|Belle & Sebastian Station ID|3468|
+STATION_ID|Bobby Long|Bobby Long StationID|3660|
+STATION_ID|Boss Martians|Boss Martians Station ID|3218|
+STATION_ID|Boxhamsters|Boxhamsters StationID|8100|
+STATION_ID|Cradle of Filth|Cradle of Filth Station ID|3914|
+STATION_ID|Dance or Die|Dance or Die Station ID|5112|
+STATION_ID|Daniel Zillmann|Daniel Zillmann Station ID|3554|
+STATION_ID|Der Papst|id-pabst|18024|
+STATION_ID|Die Ärzte|Aerzte Station ID|34898|
+STATION_ID|Drei Fragezeichen|Drei Fragezeichen Station ID|6074|
+STATION_ID|Electric Club, The|The Electric Club Station ID|5244|
+STATION_ID|Farin Urlaub|Farin Urlaub Station ID|7284|
+STATION_ID|Heinz Hoenig|Heinz Hoenig Station ID|16538|
+STATION_ID|Hennes Bender 2|Benderid Station ID|9324|
+STATION_ID|Hennes Bender|Hennes Bender Station ID|13586|
+STATION_ID||id-The_Black_Seeds-Daniel_Weetman|5388|
+STATION_ID|jörg|J15|22476|
+STATION_ID|Lee Buddah|Buddah Station ID|4620|
+STATION_ID|Megadeth|id-Megaid|9252|
+STATION_ID||New Pronographers-Station_ID|5988|
+STATION_ID||Piroth ID|8868|
+STATION_ID||Robert Fisher-ID|7500|
+STATION_ID|Rocko Schamoni|Rocko Schamoni-Station ID|9180|
+STATION_ID|Rowohlt, Harry|Rowohlt|3876|
+STATION_ID|Savatage|id-Savaid|8916|
+STATION_ID||Sepul-id|14556|
+STATION_ID|Slipknot|id-Slipknot|6564|
+STATION_ID|Sparks|Sparks|7188|
+STATION_ID|Spax|id-Spaxid|33372|
+STATION_ID||Sportfreunde Stiller_ID1|6804|
+STATION_ID||Staion ID - Hugo Race|9996|
+STATION_ID|Steffi Mahsmann|Id-ded|6468|
+STATION_ID|Steffi Mahsmann|Id-portn|4140|
+STATION_ID|Steffi Mahsmann|testament-id|6684|
+STATION_ID|student|id-Ukoerber|4572|
+STATION_ID|student|Iwavd7|2868|
+STATION_ID|Student|Student Station ID|4346|
+STATION_ID|ThePicturebooks|PictureBooks_Station ID|12084|
+STATION_ID|Thoams Gsella|Thomas Gsella Station ID|5906|
+STATION_ID|Tim|IDTim|8700|
+STATION_ID||Tim Neuhaus|4620|
+STATION_ID||Tom Lueneburger Station ID|3396|
+STATION_ID|Utah Saints|Utah Saints ID|7356|
+STATION_ID||Washington-ID|5316|
+JINGLES|DLF|Jingle Deutschlandfunk Anfang|9914|
+MUSIK|200|Bruka Tina Makt|244092|
+MUSIK|Aberfeldy|Love Is An Arrow|145548|
+MUSIK|Adamson , Barry|Jazz Devil|302028|
+MUSIK|Alex Cortiz|Smooth|264600|
+MUSIK|Antiseen|Ugly american|114396|
+MUSIK|Antony & The Johnsons|Sing For Me|143676|
+MUSIK|Antsy Pants|Amazing Kids Doing Amazing Shi|140004|
+MUSIK|Apocalyptica|I`m not Jesus|211812|
+MUSIK|Arctic Monkeys|When The Sun Goes Down|195312|
+MUSIK|A Tribe Called Quest|Oh My God|199812|
+MUSIK|autoKratz|Always More|250596|
+MUSIK|B2KDA|Un Poquito|277164|
+MUSIK|Baby Universal|We The Strangers|210420|
+MUSIK|Baddies|Holler For My Holiday|147180|
+MUSIK|Balthazar|I'll Stay Here|176976|
+MUSIK|Banner Pilot|Alchemy|133932|
+MUSIK|Baths|Ossuary|227448|
+MUSIK|Beware of Darkness|Sweet Girl|153420|
+MUSIK|Biafra, Jello with Nomeansno|Bruce`s Diary|316824|
+MUSIK|Biafra, Jello with Nomeansno|Jesus was a terrrorist|153264|
+MUSIK|Big Deal|Swapping Spit|195528|
+MUSIK|Black Rust|Everything#s Fading|200916|
+MUSIK|Bloody Beetroots|Out of Sight|203076|
+MUSIK|Bluekilla|Girl U Want|176928|
+MUSIK|Blur|To The End|298788|
+MUSIK|Bonaparte| Out of Control|231996|
+MUSIK|Boogaerts, Mathieu|Jambe|142656|
+MUSIK|Bright November|Strain Return|246180|
+MUSIK|Buttering Trio| Tired Love|194268|
+MUSIK|Calexico|Cruel|235308|
+MUSIK|Carla Bruni|La dernière minute|50508|
+MUSIK|Catfish And The Bottleman| Kathleen|160596|
+MUSIK|Caviare Days|When The Light Is Breaking|185388|
+MUSIK|Cayucas|A Summer Thing|230328|
+MUSIK|Charity Children|Little Sparrow (für die Kind..|239556|
+MUSIK|Charles Bradley|You Put The Flame On It|224292|
+MUSIK|Chilites|What Do I Whish For|174348|
+MUSIK|Congo Natty|Jah Warriors|217404|
+MUSIK|Conn, Bobby|Whores|278712|
+MUSIK|Costello, Elvis|Go Away|288204|
+MUSIK|Cracker|Ain#t gonna suck itself|235620|
+MUSIK|Crustation|Ride on|265020|
+MUSIK|Das Niveau|Niveaulimbo|238872|
+MUSIK|Datarock|The Most Beautiful Girl|231408|
+MUSIK|Dead Kennedys|Viva las Vegas|152340|
+MUSIK|Defari|Focused Daily|268620|
+MUSIK|Delphic|Baiya|225552|
+MUSIK|Del the funky homosapien|Jaw gymnastics|223116|
+MUSIK|dEUS|The Architect|219756|
+MUSIK|Die Happy|Wanna be your girl|178692|
+MUSIK|D.I.T.C.|Weekend Nights|187980|
+MUSIK|Divine Fits|Chained To Love|182018|
+MUSIK|DJ Vadim|That Lite|289140|
+MUSIK|Dr. Dooom|Body Bag|211884|
+MUSIK|Dynamite Deluxe|Meilenstein|194148|
+MUSIK|Earthworks|Curioser and curioser|227268|
+MUSIK|EGG BITES CHICKEN|Cry|242592|
+MUSIK|Elephants On Tape|Planet|219696|
+MUSIK|Eternal Tango|the golden city|198924|
+MUSIK|Face To Face|It's Not All About You|179268|
+MUSIK|Faith no more|Midlife crisis|252132|
+MUSIK|Farao|Skin|207072|
+MUSIK|Fat Freddy's Drop|Clean The House|197376|
+MUSIK|Feeder|Pain on pain|240276|
+MUSIK|Feelin' Funky|Hang Up|126672|
+MUSIK|Figurines|Bright|153036|
+MUSIK|Fink| Looking Too Closely|196908|
+MUSIK|First Aid Kit| Master Pretender|221580|
+MUSIK|Francis,Sage|Gunz Yo|182940|
+MUSIK|Frank Turner|The Way I Tend To Be|218508|
+MUSIK|Franz Ferdinand|Love Illumination (Radio Mix)|222216|
+MUSIK|Freddie Foxxx&Bumpy Knuckles|Swazzee|255180|
+MUSIK|Fury in the slaughterhouse|You ll never be alone|282804|
+MUSIK|Gaye, Marvin|Got To Give It Up|243684|
+MUSIK|Get Dead|Riverbank|227676|
+MUSIK|Glass Animals| Pools|207624|
+MUSIK|Gossip|Heavy Cross|241980|
+MUSIK|Grease|Summer Loving|212652|
+MUSIK|Green, Adam|Hard To Be A Girl|97644|
+MUSIK|Guns N' Roses|Madagascar|335796|
+MUSIK|Haight Ashbury|Freeman Town (Radio Edit)|228492|
+MUSIK|Helldorado|Diesel and Bones|228048|
+MUSIK|Hercules and Love Affair| THAT'S NOT ME|247908|
+MUSIK|Hertz 87.9|Hertzstück + Klassiker|267372|
+MUSIK|Hertz 87.9|Hertzstück + Klassiker|275640|
+MUSIK|Hertz 87.9|Hertzstück + Klassiker|287628|
+MUSIK|Hertz 87.9|Hertzstück + Klassiker|296664|
+MUSIK|Hertz 87.9|Hertzstück + Klassiker|297924|
+MUSIK|Hertz 87.9|Hertzstück + Klassiker|338652|
+MUSIK|Hubbard, Freddie|Birdlike|615492|
+MUSIK|Idle Class|Chances are for Poets|160752|
+MUSIK|Indelicates, THe|America|252624|
+MUSIK|Inspiral Carpets|Generations|165864|
+MUSIK|In The Valley Below|Peaches|283752|
+MUSIK|Iron & Wine|Southern Anthem|230628|
+MUSIK|Jagwar Ma|Man I Need|220644|
+MUSIK|Jamiroquai|Dynamite|292188|
+MUSIK|Jan Blomqvist| Time Again|286452|
+MUSIK|Japandroids|The House That Heaven Built|285696|
+MUSIK|Jay-Z feat. Frank Ocean|Oceans|235968|
+MUSIK|Jesper Munk|Hungry For Love|143748|
+MUSIK|John Clarke|Tell it to them roots dread|210924|
+MUSIK|Jo Stance|Tell Me Girls|264804|
+MUSIK|Julian Cope|Paradise Mislaid|282108|
+MUSIK|kaizers orchestra|di grind|243348|
+MUSIK|Kakkmaddafakka|Young|195768|
+MUSIK|Kapelle Petra|Geht mehr auf Konzerte|165780|
+MUSIK|Kasabian|Underdog|275928|
+MUSIK|Kaurna Cronin| Run Boy|185436|
+MUSIK|Kill It Kid| I'll Be The First|196716|
+MUSIK|Kool Keith|27 Shots|198204|
+MUSIK|Kweller, Ben|Sundress|241920|
+MUSIK|La Roux| Uptight Downtown|200004|
+MUSIK|Le Zero|Metronome Solitude|233976|
+MUSIK|Lissi Dancefloor Disaster|Oh My God|154452|
+MUSIK|Local Shop| Local Girls|256284|
+MUSIK|Lukas Little Sister|Coast Blues|194196|
+MUSIK|L.U.S.T.|First Tattoo|149028|
+MUSIK|Mac Miller|Aquarium|255338|
+MUSIK|Major Lance|Um, Um, Um, Um, Um, Um|135300|
+MUSIK|Mansun|Comes as no surprise|240492|
+MUSIK|Mansun|Wide open space|271008|
+MUSIK|Maps|I Heard Them Say|260688|
+MUSIK|Melotron|Lebe ungewöhnlich|277092|
+MUSIK|Mesh|Four Walls|248808|
+MUSIK|Metronomy|Everything Goes My Way|193908|
+MUSIK|Mikrofisch|I Like You|268596|
+MUSIK|Minor Majority|Dancing in the backyard|223368|
+MUSIK|Monocular|Guidance|196476|
+MUSIK|Mop Mop|Loa Chant feat. Sara Sayed|222888|
+MUSIK|Morgenstern, Christian|Rocket Science|227292|
+MUSIK|Motorama|White Light|201036|
+MUSIK|My Son The Bum|Caffeine Blues|211920|
+MUSIK|My vitriol|Pieces|210720|
+MUSIK|N.A.S.A.|Whachadoin?|249204|
+MUSIK|Nouvelle Vague|Friday Night Saturday Morning|256668|
+MUSIK|Nouvelle Vague|The Guns Of Brixton|243156|
+MUSIK|Patty Moon|Painting Horses|218112|
+MUSIK|Paul St. Hilaire|Don#t test|210372|
+MUSIK|Pavement|At & t|208632|
+MUSIK|Pete Rock|Half Man Half Amazin|251700|
+MUSIK|Pixies|Bagboy|288444|
+MUSIK|PJ Higgins| King Of Illusion|260532|
+MUSIK|Pretty Girls Make Graves|Pyrite Pedestral|200916|
+MUSIK|Price Billy, Bonnie|I Am Goodbye|128892|
+MUSIK|Primal Scream|It's Alright, It's okay|220428|
+MUSIK|punk soul loving...|auf die strassen|186888|
+MUSIK|Queen of the Stone Age|I Sat By The Ocean|235344|
+MUSIK|Racoon|2014|199524|
+MUSIK|Raw Fyah|Livity|303156|
+MUSIK|Razorlight|Hostage Of Love|217992|
+MUSIK|Razzia|Rotes Plastik|190536|
+MUSIK|Reuben Bell|Super Jock|171936|
+MUSIK|Ricky-Tick Big Band|Easily Flammable|263112|
+MUSIK|Rise against|Broken English|204924|
+MUSIK|Royal Blood| Come On Over|171180|
+MUSIK|Sabina| Viva L'Amour|177612|
+MUSIK|Saian Supa Crew|Ils etaient une fois|292152|
+MUSIK|Salzer|Resig Nation|162444|
+MUSIK|Sentilo Sono|Condor|187404|
+MUSIK|Shout Out Louds|Atrackandatrain|282276|
+MUSIK|Siggi Armann|Elephant Man|265080|
+MUSIK|Silke Bischoff|Love never Dies|276612|
+MUSIK|Skeewiff|Triumph Stag|237492|
+MUSIK|Snow Tha Product|On Now|190692|
+MUSIK|Stella|Finger on the trigger for the|202776|
+MUSIK|Stornoway|I Saw You Blink|226500|
+MUSIK|Stray Colors|Pada Kisa|195600|
+MUSIK|Subway to Sally|Auf Kiel|240492|
+MUSIK|Super 700|Tango - Original|234336|
+MUSIK|Svegler, Siri|Their Wine|198132|
+MUSIK|Swell|Next To Nothing|306612|
+MUSIK|Sylvan Esso|Play It Right|181538|
+MUSIK|Tech N9ne|Fragile ft. Kendrick Lamar, MA|237132|
+MUSIK|Teenage Fanclub|Only with you|255540|
+MUSIK|the Big Pink|Hit The Ground (Superman)|291240|
+MUSIK|The Black Keys|Strange Times|188328|
+MUSIK|The Blood Arm|The Chasers|164016|
+MUSIK|The Bloody Beetroots|Awesome|151524|
+MUSIK|The Bottrops|DIE MASCHINE|154644|
+MUSIK|The Child Of Lov|Give It To The People|160704|
+MUSIK|the Cinematics|Guernica|215316|
+MUSIK|The Crookes|Bear's Blood|166668|
+MUSIK|The Exploited|If you're sad|318732|
+MUSIK|The Fiery Furnaces|Single Again|236004|
+MUSIK|The Flames|Lunatic Dreams|193212|
+MUSIK|The Hot Puppies|the hot puppies / terry|241260|
+MUSIK|The John Butler Trio| Livin in the City|205260|
+MUSIK|The Lucksmiths|The Music Next Door|268632|
+MUSIK|the Mojomatics|Feet In The Hole|176832|
+MUSIK|The New Mastersounds|Idle Time (Lack Of Afro Remix)|307404|
+MUSIK|The Pipettes|ABC|124536|
+MUSIK|The Pleasants|Streets Of Darkness|267108|
+MUSIK|The Selecter|Celebrate The Bullet|255300|
+MUSIK|The Shh|So Over|203628|
+MUSIK|The Spookshow|The kneeling drunkards Plea|137436|
+MUSIK|The Staggers|Come On!|177120|
+MUSIK|the Veils|Through the Deep Dark Wood|184188|
+MUSIK|The View|The Don|186924|
+MUSIK|They Might Be Giants|Au Contraire|144684|
+MUSIK|This Is The Arrival|Metropolis|241824|
+MUSIK|Torpedo Jackson|Hype Star|150132|
+MUSIK|Totally Radd!!|Video Store|131232|
+MUSIK|Towers Of London|Air Guitar|154920|
+MUSIK|Treetop Flyers|She's Gotta Run|174036|
+MUSIK|Turbo A.C.s|HKWC|222156|
+MUSIK|Turbostaat|Fünfwürstchengriff|142668|
+MUSIK|Uncle Frank|Step Into My Room|215858|
+MUSIK|United Balls|Pogo in Togo|192240|
+MUSIK|UNKLE|Unreal|305580|
+MUSIK|van Dannen, Funny|Freunde der Realität|184860|
+MUSIK|Vangaalen,Chad|Clinically Dead|133260|
+MUSIK|Vortex Rex|Freeway Girl|145476|
+MUSIK|We Have Band|Oh! (Radio Edit)|183612|
+MUSIK|When Saints Go Machine|Mannequin|226368|
+MUSIK|White Rabbits|While We Go Dancing|254508|
+MUSIK|Yeah Yeah Yeahs|Down Boy|232068|
+MUSIK|Zeebee|Jealous (radio edit)|220512|
+MUSIK|Z-Trip|Breakfast Club|293052|
+AUTO|Hertz 87.9|Mensaplan Cart|70512|
+AUTO|Hertz 87.9|Trailer Cart|46260|
+AUTO|Hertz 87.9|Trailer Cart|79080|
+AUTO|Hertz 87.9|Trailer Cart|79572|
+AUTO|Hertz 87.9|V-Tipps Cart|118836|
+MUSIK| Zeitenrechner |Genau 1 Minute | 60000|
+MUSIK| Zeitenrechner |Genau 2 Minute |120000|
+MUSIK| Zeitenrechner |Genau 3 Minute |180000|
+MUSIK| Zeitenrechner |Genau 4 Minute |240000|
+MUSIK| Zeitenrechner |Genau 5 Minute |300000|

@@ -5,12 +5,16 @@ import re
 import sys, errno, os
 import pytz # required package: python-tz
 from xml.sax.saxutils import escape
-
+import subprocess as sp
 
 from datetime import datetime
 from optparse import OptionParser
 
 #TODO: Von .hirse.rc Variablen lesen
+
+# http://stackoverflow.com/questions/3503719/emulating-bash-source-in-python
+# command = ['bash', '-c', 'source .hirse.rc && env']
+# proc = subprocess.Popen(command, stdout = subprocess.PIPE)
 
 #TODO: Haverie-System / Restart Listener (while true??) -> lieber via bash?
 
@@ -69,26 +73,30 @@ WANTED_GROUPS = ["JINGLES", "MUSIK", "MUSIK_ALT", "WORT", "WORT_ALT", "TRAILER",
 HIRSE_HOME=""
 
 PID_FILE_DIR=HIRSE_HOME+"run/"
-PID_FILE="hertz-metadata-listener.pid"
+PID_FILE=PID_FILE_DIR+"hertz-metadata-listener.pid"
 TMP_DIR=HIRSE_HOME+"tmp/"
 XSPF_FRAGMENT_FILENAME=TMP_DIR+'xspf-current-fragment'
 PLAIN_FRAGMENT_FILENAME=TMP_DIR+'plain-current-fragment'
 CURRENT_ARTIST_FILENAME=TMP_DIR+'current.artist'
 CURRENT_TITLE_FILENAME=TMP_DIR+'current.title'
+HIRSE_META_SCRIPT_DIR=HIRSE_HOME+'etc/meta.d'
 
 # Timezone for pytz. In an ideal world should be generated automatically.
 LOCAL_TIMEZONE = "Europe/Berlin"
 
 # TODO: Exceptions permission, etc
-def write_file(string, dir, filename):
+# filename must contain dirpath! (but makes that sense?)
+def write_file(string, dirname, filename):
     try:
-        if not os.path.isdir(dir):
-            os.makedirs(dir)
+        if not os.path.isdir(dirname):
+            os.makedirs(dirname)
+        # TODO: Warum nicht dirname mitgeben? 
         outputfile = open(filename, 'w')
         outdata = string
         #outdata = string.encode("utf8")
         outputfile.write(outdata)
         outputfile.close()
+        #debug("wrote " + string + " in " + filename + " placed at " + dirname)
     except IOError:
         e = sys.exc_info()[1]
         error_print("Error: " + e.strerror + " [" + repr(e.errno) + "]")
@@ -117,6 +125,7 @@ def debug(*strings):
 
 def writePidFile():
     pid = str(os.getpid())
+    debug("My PID is: " + pid)
     write_file(pid, PID_FILE_DIR, PID_FILE)
 
 def deletePidFile():
@@ -346,8 +355,17 @@ while True:
             if CREATE_WEB or CREATE_TEXT:
                 debug("Creating WEB/TEXT output")
                 create_plain_output(artist, song, group, ms, date)
-            
-            # TODO: run-parts  ${HIRSE_META_SCRIPT_DIR} ??
+                
+                # TODO: run-parts  ${HIRSE_META_SCRIPT_DIR} ??
+                
+                metad_run = "run-parts"
+                
+                metad_args = [metad_run]
+                
+                metad_args.append(HIRSE_META_SCRIPT_DIR)
+                
+                p = sp.Popen(metad_args, bufsize=1)
+                p.communicate()
         else:
             debug("Excluding GROUP: _" + group + "_")
         
