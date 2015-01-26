@@ -205,8 +205,7 @@ SPLIT_CHAR = "|"
 # XSPF_META_TIMESTAMP_STRING:
 # ---------------------------
 # Zeichenkette, für die Metadaten in der Playliste. Arg unwichtig.
-XSPF_META_TIMESTAMP_STRING="http://radio.uni-bielefeld.de/xspf/timestamp"
-
+XSPF_META_TIMESTAMP_STRING="http://stream.radiohertz.de/xspf/timestamp"
 
 # Datei schreiben. Nimmt vorbereiten String, Pfad und Dateiname entgegen.
 # Die Ausgabe-Datei wird überschrieben.
@@ -219,6 +218,8 @@ PYTZ_OUTPUT_TIMEZONE=pytz.timezone(LOCAL_TIMEZONE)
 def get_clean_xmltime(str):
     return re.sub(r'\..*?\+', '+', str)
 
+# XML von Hand bauen. Für das bissl XSPF lohnt sich keine lib.
+# Es gibt xspf.py, aber das hatte <meta> noch nicht implementiert.
 # Create <track>-element for XSPF. This is only a fragment, not valid XSPF
 def create_xspf_track(artist, song, group, ms, utc_date):
     date = utc_date.astimezone(PYTZ_OUTPUT_TIMEZONE)
@@ -318,6 +319,9 @@ song = ""
 group = ""
 ms = ""
 
+former_artist = ""
+former_song = ""
+
 # Dauerschleife, für jedes eingehende Paket wird sie einmal durchlaufen
 while True:
     try:
@@ -345,27 +349,33 @@ while True:
         
         # Nur die Events in die Playlist einpflegen, die wir oben angegeben haben.
         if group in WANTED_GROUPS:
-            # XML von Hand bauen. Für das bissl XSPF lohnt sich keine lib.
-            # Es gibt xspf.py, aber das hat <meta> noch nicht implementiert.
             
-            if CREATE_XSPF:
-                debug("Creating XSPF output")
-                create_xspf_track(artist, song, group, ms, date)
+            # ignoriere Duplikate
+            if not (artist == former_artist and song == former_song):
             
-            if CREATE_WEB or CREATE_TEXT:
-                debug("Creating WEB/TEXT output")
-                create_plain_output(artist, song, group, ms, date)
+                former_artist = artist
+                former_song = song
                 
-                # TODO: run-parts  ${HIRSE_META_SCRIPT_DIR} ??
+                if CREATE_XSPF:
+                    debug("Creating XSPF output")
+                    create_xspf_track(artist, song, group, ms, date)
                 
-                metad_run = "run-parts"
-                
-                metad_args = [metad_run]
-                
-                metad_args.append(HIRSE_META_SCRIPT_DIR)
-                
-                p = sp.Popen(metad_args, bufsize=1)
-                p.communicate()
+                if CREATE_WEB or CREATE_TEXT:
+                    debug("Creating WEB/TEXT output")
+                    create_plain_output(artist, song, group, ms, date)
+                    
+                    # TODO: run-parts  ${HIRSE_META_SCRIPT_DIR} ??
+                    
+                    metad_run = "run-parts"
+                    
+                    metad_args = [metad_run]
+                    
+                    metad_args.append(HIRSE_META_SCRIPT_DIR)
+                    
+                    p = sp.Popen(metad_args, bufsize=1)
+                    p.communicate()
+            else:
+                debug("Ignoring duplicate " + song + "from" + artist)
         else:
             debug("Excluding GROUP: _" + group + "_")
         

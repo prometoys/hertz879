@@ -10,7 +10,7 @@ from optparse import OptionParser
 # 
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))+"/"
-FILE='playlist.txt'
+FILE=SCRIPT_DIR+'playlist.txt'
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5000
 MESSAGE = "GROUP|ARTIST|TITLE|123456| \n"
@@ -22,7 +22,7 @@ parser = OptionParser(version="%prog 0.10",
 parser.set_defaults(port=UDP_PORT)
 parser.set_defaults(ip=UDP_IP)
 parser.set_defaults(message="")
-#parser.set_defaults(filename=FILE)
+parser.set_defaults(filename=FILE)
 parser.set_defaults(random=True)
 
 parser.add_option("-p", "--port", dest="port", type="int", help="Port to send")
@@ -50,7 +50,7 @@ UDP_IP=option.ip
 UDP_PORT=option.port
 
 
-file = open(SCRIPT_DIR+FILE,'rU')
+file = open(option.filename,'rU')
 
 list = []
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# This script add scheduler code for several intro times.
+# This script removes scheduler code for several intro times.
+# Need to be conform with add-ramp-schedcodes.sh
 
 # expects MySQL credentials in file with path $MYSQL_CREDENTIALS
     
@@ -14,6 +15,9 @@ TAG_FIELD="SCHED_CODES"
 
 # What is the group name of our music
 MUSIC_NAME="MUSIK"
+
+# What subset of music we just want to tag?
+TAG_FIELD_SUBSET="xTag"
 
 # Which Ramps do we need? In seconds, separated by space
 # Don't use ramps with more or less than two digits!
@@ -30,7 +34,7 @@ TAG_PREFIX="aRampe"
 if [ $# -lt 2 ]; then
 
     # Our default filter
-    DEFAULT_FILTER_SQL="WHERE GROUP_NAME LIKE '${MUSIC_NAME}' AND NUMBER = CART_NUMBER AND CUT_QUANTITY = 1 AND  ${TAG_FIELD} LIKE '%${TAG_PREFIX}%'"
+    DEFAULT_FILTER_SQL="WHERE GROUP_NAME LIKE '${MUSIC_NAME}' AND NUMBER = CART_NUMBER AND CUT_QUANTITY = 1 AND  ${TAG_FIELD} LIKE '%${TAG_PREFIX}%' AND ${TAG_FIELD} LIKE '%${TAG_FIELD_SUBSET}%'"
 
     for RAMP_TIME in $RAMPS ; do
         TAG_NAME="${TAG_PREFIX}${RAMP_TIME}   "
