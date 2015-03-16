@@ -12,15 +12,28 @@ if [ $# -eq 1 ]; then
 
     # name of the "Zielgruppe" from command line
     ZG_NAME=$1
+    
+    # Hack um das laden von kaputten 
+    MYSQL_CREDENTIALS="/srv/rivendell/my.cnf";
+    QUERY_SQL='SHOW TABLES LIKE "ZIELGRUPPE_'${ZG_NAME}'_'${NOW_DATE}'_LOG";'
+    
+    RESULT=$(echo $QUERY_SQL | mysql  --defaults-file=${MYSQL_CREDENTIALS} Rivendell)
+    if [ ! -z "$RESULT" ]; then 
+	echo "$ZG_NAME vorhanden"
+	# Load the Log for the 'Zielgruppe' of today
+	# LL <mach> <logname> <start-line>
+	#
+	# mach: 1=Main Log (we only use the main log)
+	# logname: Date with underscores e.g. 2014_08_31
 
-    # Load the Log for the 'Zielgruppe' of today
-    # LL <mach> <logname> <start-line>
-    #
-    # mach: 1=Main Log (we only use the main log)
-    # logname: Date with underscores e.g. 2014_08_31
+	echo 'rmlsend "LL 1 ZIELGRUPPE_'${ZG_NAME}_${NOW_DATE}'"!'
+	rmlsend "LL 1 ZIELGRUPPE_${ZG_NAME}_${NOW_DATE}"!
+    else
+        echo "Log 'ZIELGRUPPE_${ZG_NAME}_${NOW_DATE}' nicht vorhanden. Tue nichts."
+    	exit 1
+    fi
 
-    echo 'rmlsend "LL 1 ZIELGRUPPE_'${ZG_NAME}_${NOW_DATE}'"!'
-    rmlsend "LL 1 ZIELGRUPPE_${ZG_NAME}_${NOW_DATE}"!
+
 else
     # Error output, if more then one argument is given at start time
     echo -e "\n\terror: exactly. one argument ("zielgruppe" name) allowed" >&2
