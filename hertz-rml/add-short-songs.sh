@@ -14,7 +14,7 @@ TABLE="CART, CUTS"
 STRING_FIELD="USER_DEFINED"
 
 # What is the name of our string?
-STRING_NAME="kurzersong"
+STRING_NAME="kurzersongs"
 
 # Where are the Scheduler codes for further limiting
 TAG_FIELD="SCHED_CODES"
