@@ -126,6 +126,8 @@ def debug(*strings):
 def writePidFile():
     pid = str(os.getpid())
     debug("My PID is: " + pid)
+    debug("My PID-Dir is: " + PID_FILE_DIR)
+    debug("My PID-File is: " + PID_FILE)
     write_file(pid, PID_FILE_DIR, PID_FILE)
 
 def deletePidFile():
