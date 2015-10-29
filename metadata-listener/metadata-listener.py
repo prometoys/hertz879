@@ -10,6 +10,8 @@ import subprocess as sp
 from datetime import datetime
 from optparse import OptionParser
 
+import unicodedata
+
 #TODO: Von .hirse.rc Variablen lesen
 
 # http://stackoverflow.com/questions/3503719/emulating-bash-source-in-python
@@ -122,6 +124,11 @@ def error_print(*strings):
 def debug(*strings):
     if option.verbose:
         error_print(*strings)
+
+# Deletes Unicode control characters
+# http://stackoverflow.com/a/19016117 
+def remove_control_characters(s):
+    return "".join(ch for ch in s if unicodedata.category(ch)[0]!="C")
 
 def writePidFile():
     pid = str(os.getpid())
@@ -343,9 +350,9 @@ while True:
             error_print("Ignoring packet with wrong value format: " + repr(data))
         
         # Zeichenketten von Leerzeichen etc. säubern.
-        artist = artist.strip()
-        song = song.strip()
-        group = group.strip()
+        artist = remove_control_characters(artist.strip())
+        song = remove_control_characters(song.strip())
+        group = remove_control_characters(group.strip())
         ms = ms.strip()
         date = datetime.now(pytz.utc)
         
