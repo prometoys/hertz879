@@ -68,7 +68,7 @@ UDP_PORT = 5000
 # nachsehen in rdadmin -> Manage Groups
 # Groß- und Kleinschreibung beachten.
 
-WANTED_GROUPS = ["JINGLES", "MUSIK", "MUSIK_ALT", "WORT", "WORT_ALT", "TRAILER", "STATION_ID", "AUTO_TT", "AUTO", "TEASER", "ZEIT"]
+WANTED_GROUPS = ["JINGLES", "MUSIK", "MUSIK_ALT", "WORT", "TRAILER", "STATION_ID", "AUTO_TT", "AUTO", "TEASER", "ZEIT"]
 
 # TODO: Pfade via Variable
 #HIRSE_HOME="/home/ices/"
@@ -283,7 +283,7 @@ def create_plain_output(artist, song, group, ms, utc_date):
 #sock.bind((UDP_IP, UDP_PORT))
 
 # Diese Zeichenkette UDP_STRING dient nur für eine verständlichen Fehlermeldung.
-UDP_STRING= UDP_IP+':'+repr(UDP_PORT)
+UDP_STRING=UDP_IP+':'+repr(UDP_PORT)
 
 # Hier lauscht das Skript konkret auf der angegebenen IP/PORT
 # TODO: IPv6 ?? -> Kann Rivendell nicht.
