@@ -61,6 +61,17 @@ UDP_IP = "0.0.0.0"
 
 UDP_PORT = 5000
 
+# OUT_UDP_PORT:
+# OUT_UDP_IP:
+# ---------
+# Port und IP auf dem die Nachrichten via UDP weitergeletet werden.
+# So kann ein Backup-Streamrechner parallel laufen und die Daten 
+# mitschneiden.
+#
+# Vorgabe: 5001, 127.0.0.1
+
+OUT_UDP_PORT = 5001
+OUT_UDP_IP = "127.0.0.1" 
 
 # WANTED_GROUPS:
 # --------------
@@ -161,6 +172,9 @@ parser.set_defaults(text=False)
 parser.set_defaults(xspf=False)
 parser.set_defaults(port=UDP_PORT)
 parser.set_defaults(ip=UDP_IP)
+parser.set_defaults(rdnownext=False)
+parser.set_defaults(outport=OUT_UDP_PORT)
+parser.set_defaults(outip=OUT_UDP_IP)
 
 parser.add_option("-p", "--port", dest="port", type="int", help="Port to listen")
 parser.add_option("-i", "--ip", dest="ip", help="IP (v4) to listen")
@@ -172,6 +186,10 @@ parser.add_option("-x", "--xspf", action="store_true",
                   help="Save output in XSPF")
 parser.add_option("-v", "--verbose", action="store_true", 
                   help="Enable verbose output")
+parser.add_option("-r", "--rdnownext", action="store_true",
+                  help="Simulate Rivendell Now+Next behavior. Forward received Now+Next data via UDP.")
+parser.add_option("-o", "--outport", dest="outport", type="int", help="Port to forward Now+Next data.")
+parser.add_option("-u", "--outip", dest="outip", help="IP to forward Now+Next data.")
 
 # Option-Parser starten und Kommandozeilen-Optionen auslesen 
 (option, args) = parser.parse_args()
@@ -183,6 +201,7 @@ STATUS = ["Off", "On"]
 debug("web:  " + STATUS[int(option.web)])
 debug("text: " + STATUS[int(option.text)])
 debug("xspf: " + STATUS[int(option.xspf)])
+debug("rdnn: " + STATUS[int(option.rdnownext)])
 
 if not option.web and not option.text and not option.xspf:   # Kein Output aktiviert
     parser.error('No output selected.\n\t\t\t     Use at least one of -t, -w and/or -x')
@@ -279,11 +298,23 @@ def create_plain_output(artist, song, group, ms, utc_date):
         write_file(artist+"\n", TMP_DIR, CURRENT_ARTIST_FILENAME)
         write_file(song+"\n", TMP_DIR, CURRENT_TITLE_FILENAME)
 
+# Forward received data to another computer
+
+def forward_nownext_data(data):
+    outsock = socket.socket(socket.AF_INET, # Internet
+                     socket.SOCK_DGRAM) # UDP
+    #if(option.unicode):
+    outsock.sendto(data, (OUT_UDP_IP, OUT_UDP_PORT))
+    #else:
+    #    sock.sendto(data.decode("utf-8").encode("iso-8859-15"), (OUT_UDP_IP, OUT_UDP_PORT))
+
+
 #sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
 #sock.bind((UDP_IP, UDP_PORT))
 
 # Diese Zeichenkette UDP_STRING dient nur für eine verständlichen Fehlermeldung.
 UDP_STRING=UDP_IP+':'+repr(UDP_PORT)
+OUT_UDP_STRING=OUT_UDP_IP+':'+repr(OUT_UDP_PORT)
 
 # Hier lauscht das Skript konkret auf der angegebenen IP/PORT
 # TODO: IPv6 ?? -> Kann Rivendell nicht.
@@ -335,6 +366,9 @@ former_song = ""
 while True:
     try:
         debug('Listening on '+UDP_STRING) 
+        if(option.rdnownext):
+            debug('Forwarding to '+OUT_UDP_STRING)
+            
         incoming, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
         #TODO: Nur pakte vom studiorechner annehmen
         # pseudocode: if addr=studio-pc-ip, then data = incoming, else drop
@@ -342,6 +376,10 @@ while True:
         # We expect ISO-8859-15 from Rivendell, we ignore everything outside
         data = incoming.decode('iso-8859-15','ignore')
         debug('Received message from '+ repr(addr) + ': ' + repr(data) )
+        
+        # Empfangenes Packet unbehandelt weiterleiten
+        if(option.rdnownext):
+            forward_nownext_data(incoming)
         
         # Empfangene Zeichenkette aufteilen.
         try:
